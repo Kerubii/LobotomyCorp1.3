@@ -30,6 +30,13 @@ namespace LobotomyCorp.Items
 
 		public override void AddRecipes() 
 		{
-		}
+            ModRecipe recipe = new ModRecipe(mod);
+            recipe.AddIngredient(ItemID.BreakerBlade);
+            recipe.AddIngredient(ItemID.SoulofNight, 8);
+            recipe.AddIngredient(ItemID.Vertebrae, 5);
+            recipe.AddIngredient(ItemID.Bottle);
+            recipe.AddTile(TileID.MythrilAnvil);
+            recipe.SetResult(this);
+        }
 	}
 }

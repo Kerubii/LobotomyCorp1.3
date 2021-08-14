@@ -1,4 +1,5 @@
 using Microsoft.Xna.Framework;
+using Microsoft.Xna.Framework.Graphics;
 using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
@@ -45,8 +46,23 @@ namespace LobotomyCorp.Items
 
         public override bool SafeCanUseItem(Player player)
         {
-            // Ensures no more than one spear can be thrown out, use this when using autoReuse
             return player.ownedProjectileCounts[item.shoot] < 1;
+        }
+
+        public override void PostDrawInInventory(SpriteBatch spriteBatch, Vector2 position, Rectangle frame, Color drawColor, Color itemColor, Vector2 origin, float scale)
+        {
+            Texture2D tex = mod.GetTexture("Items/HarmonySHead");
+            spriteBatch.Draw(tex, position, frame, drawColor, 0, origin, scale, 0, 0);
+            tex = mod.GetTexture("Items/HarmonySString");
+            spriteBatch.Draw(tex, position, frame, drawColor, 0, origin, scale, 0, 0);
+        }
+
+        public override void PostDrawInWorld(SpriteBatch spriteBatch, Color lightColor, Color alphaColor, float rotation, float scale, int whoAmI)
+        {
+            Texture2D tex = mod.GetTexture("Items/HarmonySHead");
+            spriteBatch.Draw(tex, item.position - Main.screenPosition + new Vector2(item.width / 2, item.height - tex.Height / 2), tex.Frame(), lightColor, rotation, tex.Size() / 2, scale, 0, 0);
+            tex = mod.GetTexture("Items/HarmonySString");
+            spriteBatch.Draw(tex, item.position - Main.screenPosition + new Vector2(item.width / 2, item.height - tex.Height / 2), tex.Frame(), lightColor, rotation, tex.Size() / 2, scale, 0, 0);
         }
 
         public override void AddRecipes() 

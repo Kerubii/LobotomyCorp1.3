@@ -14,7 +14,7 @@ namespace LobotomyCorp.Items
 
 		public override void SetDefaults() 
 		{
-			item.damage = 72;
+			item.damage = 62;
 			item.melee = true;
 			item.width = 40;
 			item.height = 40;
@@ -30,6 +30,12 @@ namespace LobotomyCorp.Items
 
 		public override void AddRecipes() 
 		{
-		}
+            ModRecipe recipe = new ModRecipe(mod);
+            recipe.AddIngredient(ItemID.Coral, 8);
+            recipe.AddIngredient(ItemID.Topaz, 4);  
+            recipe.AddIngredient(ItemID.AntlionMandible, 4);
+            recipe.AddTile(TileID.Anvils);
+            recipe.SetResult(this);
+        }
 	}
 }

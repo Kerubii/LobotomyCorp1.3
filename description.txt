@@ -1,1 +1,2 @@
-Lobotomy Corporation is a pretty cool mod, it does...this. Modify this file with a description of your mod.
+Lobotomy Corporation
+-Adds Ego stuff, from Zayin to Aleph

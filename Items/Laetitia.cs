@@ -35,5 +35,15 @@ namespace LobotomyCorp.Items
         {
             return new Vector2(-16, 0);
         }
+
+        public override void AddRecipes()
+        {
+            ModRecipe recipe = new ModRecipe(mod);
+            recipe.AddIngredient(ItemID.Ruby, 3);
+            recipe.AddIngredient(ItemID.TissueSample, 20);
+            recipe.AddIngredient(ItemID.CrimtaneBar, 5);
+            recipe.AddTile(TileID.Anvils);
+            recipe.SetResult(this);
+        }
     }
 }

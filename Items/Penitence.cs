@@ -1,3 +1,4 @@
+using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
 
@@ -15,7 +16,7 @@ namespace LobotomyCorp.Items
 
 		public override void SetDefaults() 
 		{
-			item.damage = 13;
+			item.damage = 14;
 			item.melee = true;
 			item.width = 40;
 			item.height = 40;
@@ -24,13 +25,19 @@ namespace LobotomyCorp.Items
 			item.useStyle = 1;
 			item.knockBack = 6;
 			item.value = 10000;
-			item.rare = 2;
+			item.rare = ItemRarityID.Green;
 			item.UseSound = SoundID.Item1;
 			item.autoReuse = true;
 		}
 
-		public override void AddRecipes() 
+        public override void OnHitNPC(Player player, NPC target, int damage, float knockBack, bool crit)
+        {
+            //Gain 10 SP onhit
+        }
+
+        public override void AddRecipes() 
 		{
+
 		}
 	}
 }

@@ -12,12 +12,12 @@ namespace LobotomyCorp.Items
         }
 
 		public override void SetDefaults() {
-			item.damage = 6;
+			item.damage = 12;
 			item.ranged = true;
 			item.width = 40;
 			item.height = 20;
-			item.useTime = 16;
-			item.useAnimation = 16;
+			item.useTime = 14;
+			item.useAnimation = 14;
 			item.useStyle = ItemUseStyleID.HoldingOut;
 			item.noMelee = true;
 			item.knockBack = 4;

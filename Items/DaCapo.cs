@@ -61,6 +61,12 @@ namespace LobotomyCorp.Items
 
         public override void AddRecipes() 
 		{
-		}
+            ModRecipe recipe = new ModRecipe(mod);
+            recipe.AddIngredient(ItemID.DarkShard);
+            recipe.AddIngredient(ItemID.LightShard);
+            recipe.AddIngredient(ItemID.MusicBox);
+            recipe.AddTile(TileID.MythrilAnvil);
+            recipe.SetResult(this);
+        }
 	}
 }

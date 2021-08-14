@@ -6,7 +6,7 @@ using Terraria.ModLoader.IO;
 
 namespace LobotomyCorp.Items
 {
-	public class RealizedWingbeat : SEgoItem
+	public class WingbeatS : SEgoItem
 	{
         public override bool Autoload(ref string name)
         {
@@ -44,7 +44,7 @@ namespace LobotomyCorp.Items
             item.shoot = mod.ProjectileType("RealizedWingbeat");
 
             item.noUseGraphic = true;
-			item.UseSound = SoundID.Item1;
+            item.UseSound = mod.GetLegacySoundSlot(SoundType.Item, "Sounds/Item/Fairy_QueenAtk").WithVolume(0.5f);
             item.noMelee = true;
 			item.autoReuse = true;
 		}
@@ -66,13 +66,15 @@ namespace LobotomyCorp.Items
                 item.shootSpeed = 16f;
                 item.shoot = mod.ProjectileType("RealizedWingbeat");
             }
-            return base.SafeCanUseItem(player);
+            return player.ownedProjectileCounts[mod.ProjectileType("RealizedWingbeat")] == 0;
         }
 
         public override void HoldItem(Player player)
         {
             player.handoff = (sbyte)mod.GetEquipSlot("Wingbeat_HandsOff", EquipType.HandsOff);
             player.handon = (sbyte)mod.GetEquipSlot("Wingbeat_HandsOn", EquipType.HandsOn);
+            if (!player.HasBuff(mod.BuffType("Gluttony")))
+                Main.PlaySound(mod.GetLegacySoundSlot(SoundType.Item, "Sounds/Item/Fairy_QueenChange").WithVolume(0.5f), player.Center);
             player.AddBuff(mod.BuffType("Gluttony"), 180);
         }
 

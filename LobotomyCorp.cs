@@ -5,6 +5,7 @@ using Terraria.ID;
 using Terraria.Graphics;
 using Terraria.ModLoader;
 using Microsoft.Xna.Framework;
+using Terraria.Localization;
 
 namespace LobotomyCorp
 {
@@ -21,13 +22,19 @@ namespace LobotomyCorp
 	{
         public static Texture2D ArcanaSlaveLaser = null;
         public static Texture2D ArcanaSlaveBackground = null;
-        public static Color PositivePE = new Color(18,255,86);
-        public static Color NegativePE = new Color(239, 77, 61);
-        public static Color ZayinRarity = new Color(33, 249, 0);
-        public static Color TethRarity = new Color(26, 161, 255);
-        public static Color HeRarity = new Color(255, 250, 4);
-        public static Color WawRarity = new Color(122, 48, 241);
-        public static Color AlephRarity = new Color(255, 1, 0);
+
+        public static Texture2D RedShield = null;
+        public static Texture2D WhiteShield = null;
+        public static Texture2D BlackShield = null;
+        public static Texture2D PaleShield = null;
+
+        public static Color PositivePE => new Color(18,255,86);
+        public static Color NegativePE => new Color(239, 77, 61);
+        public static Color ZayinRarity => new Color(33, 249, 0);
+        public static Color TethRarity => new Color(26, 161, 255);
+        public static Color HeRarity => new Color(255, 250, 4);
+        public static Color WawRarity => new Color(122, 48, 241);
+        public static Color AlephRarity => new Color(255, 1, 0);
 
         public static ModHotKey SynchronizeEGO;
         public static ModHotKey PassiveShow;
@@ -50,6 +57,15 @@ namespace LobotomyCorp
                 PremultiplyTexture(ArcanaSlaveLaser);
                 ArcanaSlaveBackground = GetTexture("Projectiles/QueenLaser/CircleBackground");
                 PremultiplyTexture(ArcanaSlaveBackground);
+
+                RedShield = GetTexture("Misc/BulletShield/RedShield");
+                PremultiplyTexture(RedShield);
+                WhiteShield = GetTexture("Misc/BulletShield/WhiteShield");
+                PremultiplyTexture(WhiteShield);
+                BlackShield = GetTexture("Misc/BulletShield/BlackShield");
+                PremultiplyTexture(BlackShield);
+                PaleShield = GetTexture("Misc/BulletShield/PaleShield");
+                PremultiplyTexture(PaleShield);
 
                 if (Main.netMode != NetmodeID.Server)
                 {
@@ -75,14 +91,30 @@ namespace LobotomyCorp
         {
             ArcanaSlaveLaser = null;
             ArcanaSlaveBackground = null;
-            PositivePE = new Color();
+
+            RedShield = null;
+            WhiteShield = null;
+            BlackShield = null;
+            PaleShield = null;
+
+            /*PositivePE = new Color();
             NegativePE = new Color();
             ZayinRarity = new Color();
             TethRarity = new Color();
             HeRarity = new Color();
             WawRarity = new Color();
-            AlephRarity = new Color();
+            AlephRarity = new Color();*/
             PassiveShow = null;
+        }
+
+        public override void AddRecipeGroups()
+        {
+            RecipeGroup rec = new RecipeGroup(() => Language.GetTextValue("LegacyMisc.37") + " " + "EvilPowder", new[]
+            {
+                (int)ItemID.ViciousPowder,
+                (int)ItemID.VilePowder
+            });
+            RecipeGroup.RegisterGroup("LobotomyCorp:EvilPowder", rec);
         }
 
         public static bool LamentValid(NPC t, Projectile p)

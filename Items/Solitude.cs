@@ -13,9 +13,9 @@ namespace LobotomyCorp.Items
         }
 
 		public override void SetDefaults() {
-			item.damage = 6;
+			item.damage = 18;
 			item.ranged = true;
-			item.width = 40;
+			item.width = 18;
 			item.height = 20;
 			item.useTime = 16;
 			item.useAnimation = 16;
@@ -35,6 +35,15 @@ namespace LobotomyCorp.Items
         public override Vector2? HoldoutOffset()
         {
             return new Vector2(-2, 0);
+        }
+
+        public override void AddRecipes()
+        {
+            ModRecipe recipe = new ModRecipe(mod);
+            recipe.AddIngredient(ItemID.Revolver);
+            recipe.AddRecipeGroup("LobotomyCorp:EvilPowder", 12);
+            recipe.AddTile(TileID.Anvils);
+            recipe.SetResult(this);
         }
     }
 }

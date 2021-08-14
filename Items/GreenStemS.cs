@@ -6,7 +6,7 @@ using Terraria.ModLoader.IO;
 
 namespace LobotomyCorp.Items
 {
-	public class RealizedGreenStem : ModItem
+	public class GreenStemS : ModItem
 	{
         public override void SetStaticDefaults() 
 		{

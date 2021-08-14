@@ -125,7 +125,14 @@ namespace LobotomyCorp.Items
 
         public override bool PreDrawInInventory(SpriteBatch spriteBatch, Vector2 position, Rectangle frame, Color drawColor, Color itemColor, Vector2 origin, float scale)
         {
-            spriteBatch.Draw(mod.GetTexture("FaintAromaRDisplay"), position, frame, drawColor, 0, origin, scale, 0, 0);
+            spriteBatch.Draw(mod.GetTexture("Items/FaintAromaSDisplay"), position, frame, drawColor, 0, origin, scale, 0, 0);
+            return false;
+        }
+
+        public override bool PreDrawInWorld(SpriteBatch spriteBatch, Color lightColor, Color alphaColor, ref float rotation, ref float scale, int whoAmI)
+        {
+            Texture2D tex = mod.GetTexture("Items/FaintAromaSDisplay");
+            spriteBatch.Draw(tex, item.position - Main.screenPosition + new Vector2(item.width/2, item.height - tex.Height/2), tex.Frame(), lightColor, rotation, tex.Size()/2, scale, 0, 0);
             return false;
         }
 

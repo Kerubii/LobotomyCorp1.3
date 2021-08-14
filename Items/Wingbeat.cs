@@ -14,7 +14,7 @@ namespace LobotomyCorp.Items
 
 		public override void SetDefaults() 
 		{
-			item.damage = 16;
+			item.damage = 18;
 			item.melee = true;
 			item.width = 40;
 			item.height = 40;
@@ -23,13 +23,20 @@ namespace LobotomyCorp.Items
 			item.useStyle = 1;
 			item.knockBack = 6;
 			item.value = 10000;
-			item.rare = 2;
+			item.rare = ItemRarityID.Green;
 			item.UseSound = SoundID.Item1;
 			item.autoReuse = true;
 		}
 
 		public override void AddRecipes() 
 		{
+            ModRecipe recipe = new ModRecipe(mod);
+            recipe.AddIngredient(ItemID.Firefly, 5);
+            recipe.AddIngredient(ItemID.Bottle);
+            recipe.AddIngredient(ItemID.Sapphire, 3);
+            recipe.AddIngredient(ItemID.Sunflower);
+            recipe.AddTile(TileID.Anvils);
+            recipe.SetResult(this);
 		}
 	}
 }

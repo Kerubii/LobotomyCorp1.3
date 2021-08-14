@@ -5,7 +5,7 @@ using Terraria.ModLoader;
 
 namespace LobotomyCorp.Items
 {
-	public class RealizedGrinderMk2 : SEgoItem
+	public class GrinderMk2S : SEgoItem
 	{
 		public override void SetStaticDefaults() 
 		{

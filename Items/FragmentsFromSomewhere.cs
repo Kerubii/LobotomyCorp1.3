@@ -18,7 +18,7 @@ namespace LobotomyCorp.Items
 
 		public override void SetDefaults() 
 		{
-			item.damage = 16;
+			item.damage = 14;
 			item.melee = true;
 			item.width = 40;
 			item.height = 40;
@@ -29,7 +29,7 @@ namespace LobotomyCorp.Items
 			item.useStyle = ItemUseStyleID.HoldingOut;
 			item.knockBack = 6;
 			item.value = 10000;
-			item.rare = 3;
+			item.rare = 1;
             item.shootSpeed = 3.7f;
             item.shoot = mod.ProjectileType("FragmentsFromSomewhere");
 
@@ -45,8 +45,23 @@ namespace LobotomyCorp.Items
             return player.ownedProjectileCounts[item.shoot] < 1;
         }
 
+        public override void OnHitNPC(Player player, NPC target, int damage, float knockBack, bool crit)
+        {
+            //On hit, 10% chance to increase sp by 40% for 30 seconds
+        }
+
         public override void AddRecipes() 
 		{
-		}
+            ModRecipe recipe = new ModRecipe(mod);
+            recipe.AddIngredient(ItemID.FallenStar, 10);
+            recipe.AddIngredient(ItemID.Amethyst);
+            recipe.AddIngredient(ItemID.Topaz);
+            recipe.AddIngredient(ItemID.Emerald);
+            recipe.AddIngredient(ItemID.Ruby);
+            recipe.AddIngredient(ItemID.Sapphire);
+            recipe.AddIngredient(ItemID.Diamond);
+            recipe.AddTile(TileID.Anvils);
+            recipe.SetResult(this);
+        }
 	}
 }

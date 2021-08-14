@@ -1,4 +1,5 @@
 using Microsoft.Xna.Framework;
+using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
 
@@ -12,7 +13,7 @@ namespace LobotomyCorp.Items
         }
 
 		public override void SetDefaults() {
-			item.damage = 6;
+			item.damage = 9;
 			item.ranged = true;
 			item.width = 40;
 			item.height = 20;
@@ -34,6 +35,17 @@ namespace LobotomyCorp.Items
         public override Vector2? HoldoutOffset()
         {
             return new Vector2(-2, 0);
+        }
+
+        public override void AddRecipes()
+        {
+            ModRecipe recipe = new ModRecipe(mod);
+            recipe.AddIngredient(RecipeGroupID.IronBar, 10);
+            recipe.AddIngredient(ItemID.LesserHealingPotion);
+            recipe.AddIngredient(ItemID.LesserManaPotion);
+            recipe.AddIngredient(ItemID.BottledHoney);
+            recipe.AddTile(TileID.Anvils);
+            recipe.SetResult(this);
         }
     }
 }

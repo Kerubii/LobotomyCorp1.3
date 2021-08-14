@@ -5,7 +5,7 @@ using Terraria.ModLoader;
 
 namespace LobotomyCorp.Items
 {
-	public class RealizedSwordSharpenedWithTears : SEgoItem
+	public class SwordSharpenedWithTearsS : SEgoItem
 	{
 		public override void SetStaticDefaults() 
 		{

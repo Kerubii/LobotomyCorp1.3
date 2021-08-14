@@ -15,8 +15,9 @@ namespace LobotomyCorp.Items
 
         public override void SetDefaults() {
 			item.CloneDefaults(ItemID.CopperShortsword);
-			item.damage = 32;
-		}
+			item.damage = 16;
+            item.rare = ItemRarityID.Blue;
+        }
 
         public override void OnHitNPC(Player player, NPC target, int damage, float knockBack, bool crit)
         {

@@ -19,16 +19,16 @@ namespace LobotomyCorp.Items
 		{
 			item.damage = 24;
 			item.magic = true;
-            item.mana = 8;
+            item.mana = 4;
 			item.width = 40;
 			item.height = 40;
-			item.useTime = 26;
-			item.useAnimation = 26;
+			item.useTime = 20;
+			item.useAnimation = 20;
 			item.useStyle = 1;
             item.noMelee = true;
 			item.knockBack = 2.4f;
 			item.value = 10000;
-			item.rare = 2;
+			item.rare = 1;
 			item.UseSound = SoundID.Item1;
 			item.autoReuse = true;
             item.shoot = mod.ProjectileType("CherryBlossomsPetal");
@@ -37,6 +37,7 @@ namespace LobotomyCorp.Items
 
         public override bool Shoot(Player player, ref Vector2 position, ref float speedX, ref float speedY, ref int type, ref int damage, ref float knockBack)
         {
+            damage = (int)(damage * 0.6f);
             for (int i = 0; i < 3; i++)
             {
                 Vector2 speed = new Vector2(speedX, speedY).RotatedByRandom(MathHelper.ToRadians(15));
@@ -53,6 +54,12 @@ namespace LobotomyCorp.Items
 
         public override void AddRecipes() 
 		{
-		}
+            ModRecipe recipe = new ModRecipe(mod);
+            recipe.AddIngredient(ItemID.Acorn, 3);
+            recipe.AddIngredient(ItemID.DynastyWood, 20);
+            recipe.AddIngredient(ItemID.SharkToothNecklace);
+            recipe.AddTile(TileID.Anvils);
+            recipe.SetResult(this);
+        }
 	}
 }

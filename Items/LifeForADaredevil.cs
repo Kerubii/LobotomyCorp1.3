@@ -15,8 +15,9 @@ namespace LobotomyCorp.Items
 
         public override void SetDefaults() {
 			item.CloneDefaults(ItemID.Katana);
-			item.damage = 24;
+			item.damage = 32;
             item.melee = false;
+            item.rare = ItemRarityID.Yellow;
 		}
 
         public override void ModifyHitNPC(Player player, NPC target, ref int damage, ref float knockBack, ref bool crit)
@@ -30,6 +31,12 @@ namespace LobotomyCorp.Items
         }
 
         public override void AddRecipes() {
-		}
+            ModRecipe recipe = new ModRecipe(mod);
+            recipe.AddIngredient(ItemID.IronBar, 10);
+            recipe.AddIngredient(ItemID.LeadBar, 10);
+            recipe.AddIngredient(ItemID.Obsidian, 5);
+            recipe.AddTile(TileID.Hellforge);
+            recipe.SetResult(this);
+        }
 	}
 }

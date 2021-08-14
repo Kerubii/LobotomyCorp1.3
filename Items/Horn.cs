@@ -18,7 +18,7 @@ namespace LobotomyCorp.Items
 
 		public override void SetDefaults() 
 		{
-			item.damage = 16;
+			item.damage = 24;
 			item.melee = true;
 			item.width = 40;
 			item.height = 40;
@@ -29,7 +29,7 @@ namespace LobotomyCorp.Items
 			item.useStyle = ItemUseStyleID.HoldingOut;
 			item.knockBack = 6;
 			item.value = 10000;
-			item.rare = 3;
+			item.rare = ItemRarityID.Blue;
             item.shootSpeed = 3.7f;
             item.shoot = mod.ProjectileType("Horn");
 
@@ -47,6 +47,12 @@ namespace LobotomyCorp.Items
 
         public override void AddRecipes() 
 		{
+            ModRecipe recipe = new ModRecipe(mod);
+            recipe.AddIngredient(ItemID.JungleRose);
+            recipe.AddIngredient(ItemID.Lens, 5);
+            recipe.AddIngredient(ItemID.JungleSpores, 9);
+            recipe.AddTile(TileID.Anvils);
+            recipe.SetResult(this);
 		}
 	}
 }

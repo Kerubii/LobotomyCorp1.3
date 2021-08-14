@@ -16,6 +16,7 @@ namespace LobotomyCorp.Items
         public override void SetDefaults() {
 			item.CloneDefaults(ItemID.FetidBaghnakhs);
 			item.damage = 32;
+            item.scale = 0.60f;
 		}
 
         public override void ModifyWeaponDamage(Player player, ref float add, ref float mult, ref float flat)
@@ -29,13 +30,13 @@ namespace LobotomyCorp.Items
         public override void OnHitNPC(Player player, NPC target, int damage, float knockBack, bool crit)
         {
             if (Main.rand.Next(10) == 0)
-                player.AddBuff(mod.BuffType("WillBeBad"), 300);
+                player.AddBuff(mod.BuffType("WillBeBad"), 120);
         }
 
         public override void OnHitPvp(Player player, Player target, int damage, bool crit)
         {
             if (Main.rand.Next(10) == 0)
-                player.AddBuff(mod.BuffType("WillBeBad"), 300);
+                player.AddBuff(mod.BuffType("WillBeBad"), 120);
         }
 
         public override void AddRecipes() {

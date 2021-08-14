@@ -54,7 +54,7 @@ namespace LobotomyCorp.Projectiles
 				}
 				else // Otherwise, increase the movement factor
 				{
-					movementFactor += 2.1f;
+					movementFactor += 2.4f;
 				}
 			}
 			// Change the spear position based off of the velocity and the movementFactor

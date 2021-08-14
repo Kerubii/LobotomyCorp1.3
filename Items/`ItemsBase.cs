@@ -74,7 +74,7 @@ namespace LobotomyCorp.Items
                     Passive[i] = Passive[i].Substring(0, dashLocation);
                 }
             }
-            result = String.Join("\n", Passive);
+            result = string.Join("\n", Passive);
             if (result.EndsWith("\n"))
                 result = result.Substring(0, result.Length - 1);
 
@@ -113,7 +113,7 @@ namespace LobotomyCorp.Items
             }
             if (helper > anim)
             {
-                player.itemAnimation = (int)(player.itemAnimationMax * (1f - (((float)helper - anim) / (anim * 2))));
+                player.itemAnimation = (int)(player.itemAnimationMax * ((0.5f * Math.Cos( (float) Math.PI * (((float)helper - anim) / (anim * 2))) + 0.5f) / 1f ));
             }
             else
             {
@@ -121,7 +121,7 @@ namespace LobotomyCorp.Items
             }
             if (player.itemAnimation <= 2)
                 player.itemAnimation = 3;
-            if (helper < player.itemAnimationMax * 4 - 2)
+            if (helper < player.itemAnimationMax * 3)
                 item.noUseGraphic = false;
         }
         

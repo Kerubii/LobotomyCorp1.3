@@ -34,6 +34,13 @@ namespace LobotomyCorp.Items
         }
         */
         public override void AddRecipes() {
-		}
+
+            ModRecipe recipe = new ModRecipe(mod);
+            recipe.AddIngredient(ItemID.Silk, 30);
+            recipe.AddIngredient(ItemID.Cobweb, 20);
+            recipe.AddIngredient(ItemID.BrownDye, 3);
+            recipe.AddTile(TileID.Anvils);
+            recipe.SetResult(this);
+        }
 	}
 }

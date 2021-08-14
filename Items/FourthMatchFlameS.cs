@@ -5,7 +5,7 @@ using Terraria.ModLoader;
 
 namespace LobotomyCorp.Items
 {
-	public class RealizedFourthMatchFlame : SEgoItem
+	public class FourthMatchFlameS : SEgoItem
 	{
 		public override void SetStaticDefaults() 
 		{
@@ -13,8 +13,9 @@ namespace LobotomyCorp.Items
 			Tooltip.SetDefault("A Complete E.G.O.\n" +
                                "\"I am coming to you. You, who will be reduced to ash like me.\"");
             PassiveText = "Warmth of a Flame - 400% increased damage on fourth use\n" +
+                          "Fourth Match - Alt attack makes you self destruct while on fourth use that deals 4000% increased damage" +
                           "|Scorching Embers - Inflicts Onfire on target, also inflicts on user every fourth use\n" +
-                          "Burning Regret - Has a very low chance to explode on every fourth use when either on full or less than 25% health";
+                          "Burning Regret - Has a 0.1% chance to trigger Fourth Match on every fourth use";
 		}
 
 		public override void SetDefaults() 
@@ -35,6 +36,7 @@ namespace LobotomyCorp.Items
             item.noUseGraphic = true;
             item.noMelee = true;
 			item.autoReuse = true;
+            
 		}
 
         public override bool SafeCanUseItem(Player player)
@@ -52,6 +54,13 @@ namespace LobotomyCorp.Items
             }
             else
             {
+                if (player.altFunctionUse == 2)
+                {
+                    LobotomyModPlayer.ModPlayer(player).FourthMatchExplode(true);
+                    LobotomyModPlayer.ModPlayer(player).FourthMatchFlameR = 0;
+                    return false;
+                }
+
                 item.useTime = 30;
                 item.useAnimation = 30;
                 item.shoot = mod.ProjectileType("FourthMatchFlameSlash");
@@ -66,6 +75,12 @@ namespace LobotomyCorp.Items
             return true;
         }
 
+        public override bool Shoot(Player player, ref Vector2 position, ref float speedX, ref float speedY, ref int type, ref int damage, ref float knockBack)
+        {
+            damage = (damage * 4);
+            return base.Shoot(player, ref position, ref speedX, ref speedY, ref type, ref damage, ref knockBack);
+        }
+
         public override void UseStyle(Player player)
         {
             Vector2 offset = new Vector2(-82, 0).RotatedBy(player.itemRotation - MathHelper.ToRadians(45 * player.direction + (player.direction > 0 ? 180 : 0)));
@@ -74,16 +89,16 @@ namespace LobotomyCorp.Items
             dust.noGravity = true;
         }
 
-        public override void ModifyWeaponDamage(Player player, ref float add, ref float mult)
+        /*public override void ModifyWeaponDamage(Player player, ref float add, ref float mult)
         {
-            if (LobotomyModPlayer.ModPlayer(player).FourthMatchFlameR == 3)
+            if (LobotomyModPlayer.ModPlayer(player).FourthMatchFlameR > 3)
                 add += 5f;
-        }
-
-        /*public override bool AltFunctionUse(Player player)
-        {
-            return FourthMatchFlame > 3;
         }*/
+
+        public override bool AltFunctionUse(Player player)
+        {
+            return LobotomyModPlayer.ModPlayer(player).FourthMatchFlameR == 3;
+        }
 
         public override void AddRecipes() 
 		{

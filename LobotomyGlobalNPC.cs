@@ -1,6 +1,7 @@
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using Terraria;
+using Terraria.ID;
 using Terraria.ModLoader;
 
 namespace LobotomyCorp
@@ -157,6 +158,18 @@ namespace LobotomyCorp
                 SpawnHornet(npc);
             }
             return true;
+        }
+
+        public override void SetupShop(int type, Chest shop, ref int nextSlot)
+        {
+            if (type == NPCID.Merchant)
+            {
+                if (Main.bloodMoon)
+                {
+                    shop.item[nextSlot].SetDefaults(mod.ItemType("WristCutter"));
+                    nextSlot++;
+                }
+            }
         }
 
         public bool WingbeatNear(NPC npc)

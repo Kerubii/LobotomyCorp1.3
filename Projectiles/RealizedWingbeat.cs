@@ -17,7 +17,7 @@ namespace LobotomyCorp.Projectiles
 			projectile.width = 16;
 			projectile.height = 16;
 			projectile.aiStyle = -1;
-			projectile.penetrate = 1;
+			projectile.penetrate = -1;
 			projectile.scale = 1f;
 			projectile.alpha = 0;
             projectile.timeLeft = 8;
@@ -36,17 +36,18 @@ namespace LobotomyCorp.Projectiles
 			projectile.direction = projOwner.direction;
 			projectile.position.X = ownerMountedCenter.X - (float)(projectile.width / 2);
 			projectile.position.Y = ownerMountedCenter.Y - (float)(projectile.height / 2);
-			projectile.position += projectile.velocity;
+			projectile.position += projectile.velocity * projectile.ai[1];
+            projectile.ai[1] += 0.5f;
             if (LobotomyModPlayer.ModPlayer(projOwner).RealizedWingbeatMeal < 0)
                 return;
             NPC meal = Main.npc[LobotomyModPlayer.ModPlayer(projOwner).RealizedWingbeatMeal];
-            if (!meal.active || meal.life <= 0)
+            if (!meal.active || meal.life <= 0 || projectile.ai[0] == 2)
                 return;
             Vector2 delta = meal.Center - ownerMountedCenter;
             float dist = delta.Length();
             float rot = delta.ToRotation();
             dist -= meal.width < meal.height ? meal.height : meal.width;
-            if (dist < 40)
+            if (dist < 72)
             {
                 projectile.position = meal.Center;
                 if (Math.Abs(projectile.velocity.X) > 5.7f)//11.3)
@@ -59,7 +60,7 @@ namespace LobotomyCorp.Projectiles
 
         public override bool? CanHitNPC(NPC target)
         {
-            return (projectile.ai[0] == 0 || target.whoAmI == LobotomyModPlayer.ModPlayer(Main.player[projectile.owner]).RealizedWingbeatMeal);
+            return (projectile.ai[0] == 0 || (projectile.ai[0] == 1 && target.whoAmI == LobotomyModPlayer.ModPlayer(Main.player[projectile.owner]).RealizedWingbeatMeal));
         }
 
         public override void OnHitNPC(NPC target, int damage, float knockback, bool crit)
@@ -67,8 +68,9 @@ namespace LobotomyCorp.Projectiles
             float angle = projectile.velocity.ToRotation();
             Player owner = Main.player[projectile.owner];
             Vector2 OldPos = owner.position;
-            float dist = owner.height + (target.width < target.height ? target.height : target.width) / 2;
-            owner.Teleport(target.Center + new Vector2(dist,0).RotatedBy(angle) - owner.Size/2, -1, -1);
+            float dist = owner.height + 16 + (target.width < target.height ? target.height : target.width) / 2;
+            //owner.Teleport(target.Center + new Vector2(dist,0).RotatedBy(angle) - owner.Size/2, -1, -1);
+            owner.velocity = (target.Center + new Vector2(dist, 0).RotatedBy(angle) - owner.Center) / (owner.itemAnimation / 2);
             for (int i = 0; i < 5; i++)
             {
                 //Dust.NewDust(OldPos, owner.width, owner.height, 15);
@@ -93,12 +95,27 @@ namespace LobotomyCorp.Projectiles
                 heal = damage / 10 * (LobotomyGlobalNPC.LNPC(target).WingbeatFairyMeal ? 3 : 1);
             owner.statLife += heal;
             owner.HealEffect(heal, false);
-            
+
+            projectile.timeLeft = owner.itemAnimation / 2 + 1;
             owner.itemAnimation /= 2;
+            owner.immuneTime = owner.itemAnimation;
+            owner.immune = true;
             owner.itemTime /= 2;
             //owner.velocity = projectile.velocity/3;
             owner.direction = dir;
-            LobotomyModPlayer.ModPlayer(owner).RealizedWingbeatMeal = target.whoAmI;
+            if (Main.rand.Next(6) != 0)
+                LobotomyModPlayer.ModPlayer(owner).RealizedWingbeatMeal = target.whoAmI;
+            else
+            {
+                LobotomyModPlayer.ModPlayer(owner).RealizedWingbeatMeal = 0;
+            }
+            projectile.ai[0] = 2;
+        }
+
+        public override void Kill(int timeLeft)
+        {
+            if (projectile.ai[0] == 2)
+                Main.player[projectile.owner].velocity *= 0.05f;
         }
 
         public override bool PreDraw(SpriteBatch spriteBatch, Color lightColor)

@@ -4,15 +4,17 @@ using Terraria.ModLoader;
 
 namespace LobotomyCorp.Items
 {
-	public class RealizedBeak : ModItem
+	public class BeakS : SEgoItem
 	{
 		public override void SetStaticDefaults() 
 		{
-			// DisplayName.SetDefault("Penitence"); // By default, capitalization in classnames will add spaces to the display name. You can customize the display name here by uncommenting this line.
-			Tooltip.SetDefault("\"People have been committing sins since long ago. \"Why do they commit sins, knowing it is wrong?\" \"\n" +
-							   "The user cannot punish does who has done nothing wrong\n" +
-                               "Right click to reduce the next incoming damage by half and counterattack the sinner\n" +
-                               "Deal 3 times more damage agains those in need of punishing");
+            // DisplayName.SetDefault("Penitence"); // By default, capitalization in classnames will add spaces to the display name. You can customize the display name here by uncommenting this line.
+            Tooltip.SetDefault("People have been committing sins since long ago. \"Why do they commit sins, knowing it is wrong?\"");
+            PassiveText = "Fluttering Wings - Right click to reduce the next incoming damage by half and counterattack\n" +
+                          "Punishing Beak - Mark enemies and enable punishment mode when getting hit" +
+                          "Punishment! - Deal 3 times more damage against marked enemies\n" +
+                          "|Misdeeds Not Allowed! - Can only hit marked enemies during punishment mode";
+            EgoColor = LobotomyCorp.TethRarity;
 		}
 
 		public override void SetDefaults() 
@@ -41,7 +43,7 @@ namespace LobotomyCorp.Items
             return LobotomyModPlayer.ModPlayer(player).BeakPunish > 0 || LobotomyGlobalNPC.LNPC(target).BeakTarget > 0;
         }
 
-        public override bool CanUseItem(Player player)
+        public override bool SafeCanUseItem(Player player)
         {
             if (player.altFunctionUse == 2)
             {

@@ -19,6 +19,24 @@ namespace LobotomyCorp
 
         public int HeavyWeaponHelper = 0;
 
+        public bool RedShield = false;
+        public bool WhiteShield = false;
+        public bool BlackShield = false;
+        public bool PaleShield = false;
+        public bool CooldownShield = false;
+        public int ShieldReapplyCooldown = 0;
+        public int ShieldHP = 0;
+        public int ShieldHPMax = 0;
+        public int ShieldAnim = 0;
+
+        public int statSanity = 100;
+        public int statSanityMax = 100;
+
+        public int statFortitude = 0;
+        public int statPrudence = 0;
+        public int statTemperance = 0;
+        public int statJustice = 0;
+
         public int BeakParry = 0;
         public int BeakPunish = 0;
 
@@ -65,6 +83,14 @@ namespace LobotomyCorp
 
             if (HeavyWeaponHelper > 0)
                 HeavyWeaponHelper--;
+            
+            RedShield = false;
+            WhiteShield = false;
+            BlackShield = false;
+            PaleShield = false;
+            CooldownShield = false;
+
+            statSanityMax = 17 + statPrudence;
 
             if (BeakPunish > 0)
                 BeakPunish--;
@@ -124,6 +150,34 @@ namespace LobotomyCorp
             {
                 Main.npc[RealizedWingbeatMeal].GetGlobalNPC<LobotomyGlobalNPC>().WingbeatTarget = player.whoAmI;
             }
+
+            if (ShieldActive)
+            {
+                ShieldAnim--;
+                /*Main.NewText(ShieldHP);
+                Main.NewText(ShieldAnim);*/
+                if (ShieldHP <= ShieldHPMax / 2)
+                {
+                    if (ShieldAnim > 120)
+                    {
+                        ShieldAnim = 60;
+                        //Dust Particles when Shield breaks a bit here
+                    }
+                    if (ShieldAnim <= 0)
+                        ShieldAnim = 60;
+                }
+                else
+                {
+                    if (ShieldAnim <= 60)
+                        ShieldAnim = 120;
+                }
+            }
+        }
+
+        public override void PostUpdate()
+        {
+            if (statSanity > statSanityMax)
+                statSanity = statSanityMax;
         }
 
         public override void UpdateBadLifeRegen()
@@ -189,17 +243,6 @@ namespace LobotomyCorp
             }
         }
 
-        public override void ModifyHitByNPC(NPC npc, ref int damage, ref bool crit)
-        {
-            if (FaintAromaPetal > 0)
-            {
-                if (FaintAromaPetal < FaintAromaPetalMax)
-                    damage = (int)(damage * (1.1f + ((float)FaintAromaPetal / (float)FaintAromaPetalMax)));
-                else
-                    damage = (int)(damage * 1.2f);
-            }
-        }
-
         public override void ProcessTriggers(TriggersSet triggersSet)
         {
             if (player.whoAmI == Main.myPlayer && LobotomyCorp.PassiveShow.JustPressed)
@@ -236,6 +279,49 @@ namespace LobotomyCorp
             }
         }
 
+        public override bool PreHurt(bool pvp, bool quiet, ref int damage, ref int hitDirection, ref bool crit, ref bool customDamage, ref bool playSound, ref bool genGore, ref PlayerDeathReason damageSource)
+        {
+            if (damageSource.SourceNPCIndex >= 0)
+            {
+                if (RedShield || BlackShield && !player.immune)
+                {
+                    damage = ShieldDamage(damage);
+                    if (damage <= 0)
+                        return false;
+                }
+            }
+
+            if (damageSource.SourceProjectileIndex >= 0)
+            {
+                if (WhiteShield || BlackShield && !player.immune)
+                {
+                    damage = ShieldDamage(damage);
+                    if (damage <= 0)
+                        return false;
+                }
+            }
+            return base.PreHurt(pvp, quiet, ref damage, ref hitDirection, ref crit, ref customDamage, ref playSound, ref genGore, ref damageSource);
+        }
+
+        public override void ModifyHitByNPC(NPC npc, ref int damage, ref bool crit)
+        {
+            if (FaintAromaPetal > 0)
+            {
+                if (FaintAromaPetal < FaintAromaPetalMax)
+                    damage = (int)(damage * (1.1f + ((float)FaintAromaPetal / (float)FaintAromaPetalMax)));
+                else
+                    damage = (int)(damage * 1.2f);
+            }
+        }
+
+        /*public override void ModifyHitByProjectile(Projectile proj, ref int damage, ref bool crit)
+        {
+            if (WhiteShield || BlackShield && !player.immune)
+            {
+                damage = ShieldDamage(damage);
+            }
+        }*/
+
         public override bool CanBeHitByNPC(NPC npc, ref int cooldownSlot)
         {
             if (FaintAromaPetal > 0 && player.HeldItem.type == mod.ItemType("FaintAromaS") && player.itemAnimation > 0 && npc.immune[player.whoAmI] > 0)
@@ -243,12 +329,12 @@ namespace LobotomyCorp
             return base.CanBeHitByNPC(npc, ref cooldownSlot);
         }
 
-        public void FourthMatchExplode()
+        public void FourthMatchExplode(bool forced = false)
         {
             if (giftFourthMatchFlame)
                 return;
             player.AddBuff(BuffID.OnFire, 120);
-            if (Main.rand.Next(100) == 0 && (player.statLife == player.statLifeMax2 || (float)(player.statLife / (float)player.statLifeMax2) < 0.25f))
+            if (forced || (Main.rand.Next(100) == 0 && (player.statLife == player.statLifeMax2 || (float)(player.statLife / (float)player.statLifeMax2) < 0.25f)))
             {
                 Projectile.NewProjectile(player.Center, Vector2.Zero, mod.ProjectileType("FourthMatchFlameExplosion"), 500, 10f, player.whoAmI);
                 player.statLife = 0;
@@ -302,6 +388,111 @@ namespace LobotomyCorp
                 return x2 * (1 - progress) + x * progress;
             else
                 return x * (1 - progress) + x2 * progress;
+        }
+
+        /// <summary>
+		/// Apply the RWBP shields use the buffs.
+		/// </summary>
+        public void ApplyShield(int type, int time, int shieldHP, bool forceApply = false)
+        {
+            if (!forceApply && ShieldActive)
+                return;
+
+            ShieldReset(ShieldActive, forceApply);
+            player.AddBuff(type, time);
+            ShieldHP = shieldHP;
+            ShieldHPMax = ShieldHP;
+            ShieldAnim = 120;
+
+            int dustType = 62;
+            if (type == mod.BuffType("ShieldR"))
+                dustType = 60;
+            else if (type == mod.BuffType("ShieldW"))
+                dustType = 63;
+            else if (type == mod.BuffType("ShieldP"))
+                dustType = 59;
+            for (int i = 0; i < 10; i++)
+            {
+                Dust dust;
+                // You need to set position depending on what you are doing. You may need to subtract width/2 and height/2 as well to center the spawn rectangle.
+                Vector2 position = player.RotatedRelativePoint(player.MountedCenter, true) - new Vector2(33, 33);
+                dust = Main.dust[Terraria.Dust.NewDust(position, 66, 66, dustType, 0f, 0f, 0, new Color(255, 255, 255), 1f)];
+                dust.noGravity = true;
+                dust.fadeIn = 1.2f;
+            }
+        }
+
+        /// <summary>
+		/// Use "R" "W" "B" "P" for type for this one, only works if buff name is "Shield" + Color.
+		/// </summary>
+        public void ApplyShield(string type, int time, int shieldHP, bool forceApply = false)
+        {
+            ApplyShield(mod.BuffType("Shield" + type), time, shieldHP, forceApply);
+        }
+
+        public bool ShieldActive => RedShield || WhiteShield || BlackShield || PaleShield || CooldownShield;
+
+        /// <summary>
+		/// Manually Reset Shields, True for break for shield breaking particles. 
+		/// </summary>
+        public void ShieldReset(bool broke = false, bool forceApply = false)
+        {
+            ShieldHP = 0;
+            ShieldHPMax = 0;
+            ShieldAnim = 0;
+            int remainingTime = 0;
+            for (int i = 0; i < 4 + forceApply.ToInt(); i++)
+            {
+                string letter = "R";
+                switch (i)
+                {
+                    case 0:
+                        letter = "R";
+                        break;
+                    case 1:
+                        letter = "W";
+                        break;
+                    case 2:
+                        letter = "B";
+                        break;
+                    case 3:
+                        letter = "P";
+                        break;
+                    default:
+                        letter = "Cooldown";
+                        break;
+                }
+                int modBuff = mod.BuffType("Shield" + letter);
+                if (player.HasBuff(modBuff))
+                {
+                    if (letter != "Cooldown")
+                        remainingTime += player.buffTime[player.FindBuffIndex(modBuff)];
+                    player.buffTime[player.FindBuffIndex(modBuff)] = 0;
+                }
+            }
+
+            if (remainingTime > 0 && !forceApply)
+                player.AddBuff(mod.BuffType("ShieldCooldown"), remainingTime);
+
+            //if (broke) //Dust Particles when breaking
+        }
+
+        /// <summary>
+		/// Returns leftovers
+		/// </summary>
+        public int ShieldDamage(int damage)
+        {
+            player.immune = true;
+            player.immuneTime = 40;
+            int damageAbsorb = Main.DamageVar(damage);
+            ShieldHP -= damageAbsorb;
+            if (ShieldHP <= 0)
+            {
+                int leftover = ShieldHP * -1;
+                ShieldReset(true);
+                return leftover;
+            }
+            return 0;
         }
 
         public int shakeTimer = 0;
@@ -394,6 +585,29 @@ namespace LobotomyCorp
                         0 //we dont need to worry about the layer depth here
                     ));
             }
+
+            if (!player.HeldItem.IsAir && player.itemAnimation != 0 && player.HeldItem.type == mod.ItemType("ParadiseLost"))
+            {
+                Texture2D tex = Main.itemTexture[player.HeldItem.type];
+
+                float OffsetY = -46;
+                Vector2 position = player.MountedCenter - Main.screenPosition + new Vector2( 10 * player.direction, OffsetY + player.gfxOffY);
+
+                Color color = Lighting.GetColor((int)(player.Center.X / 16f), (int)(player.Center.Y / 16f));
+
+                Main.playerDrawData.Add(
+                    new DrawData(
+                        tex,
+                        position,
+                        tex.Frame(),
+                        color,
+                        MathHelper.ToRadians(-45 * player.direction),
+                        tex.Size() / 2,
+                        player.HeldItem.scale,
+                        info.spriteEffects,
+                        0
+                    ));
+            }            
         }
 
         private void DrawLobWeaponBack(PlayerDrawInfo info)
@@ -509,6 +723,53 @@ namespace LobotomyCorp
                     DrawData data = new DrawData(texture, new Vector2(drawX, drawY) + Offset, null, color, rot, new Vector2(texture.Width / 2f, texture.Height / 2f), 1f, 0, 0);
                     Main.playerDrawData.Add(data);
                 }
+            }
+            //Bullet Shield Drawing
+            if (modPlayer.ShieldActive)
+            {
+                //Get texture
+                string texname = "RedShield";
+                if (modPlayer.WhiteShield)
+                    texname = "WhiteShield";
+                if (modPlayer.BlackShield)
+                    texname = "BlackShield";
+                if (modPlayer.PaleShield)
+                    texname = "PaleShield";
+                Texture2D shieldTex = mod.GetTexture("Misc/BulletShield/" + texname);
+
+                //Current Shield state
+                bool broken = modPlayer.ShieldAnim <= 60;
+
+                //Static positions etc
+                Rectangle frame = new Rectangle(0, shieldTex.Height / 2 * broken.ToInt(), shieldTex.Width, shieldTex.Height / 2);
+                Vector2 origin = frame.Size() / 2;
+                Vector2 drawPos = new Vector2((drawInfo.position.X + player.width / 2f - Main.screenPosition.X), (int)(drawInfo.position.Y + player.height / 2f - Main.screenPosition.Y));
+
+                //Shield%
+                float shieldHealth = ((float)modPlayer.ShieldHP / (float)modPlayer.ShieldHPMax);
+                //Color - Become less visible the lower the health
+                float colorOpacity = 0.6f + 0.2f * shieldHealth;
+                if (broken)
+                    colorOpacity = 0.4f + 0.2f * shieldHealth;
+                Color color = Color.White * colorOpacity;
+                color = player.GetImmuneAlpha(color, drawInfo.shadow);
+                color.A = (byte)(color.A * 0.7f);
+
+                //Scale - slowly beating, shrinks a bit when damaged
+                float progress = ((float)modPlayer.ShieldAnim - (broken ? 0 : 60)) / 60f;
+                float scale = 0.8f + 0.2f * shieldHealth + 0.05f * (float)Math.Sin(2f * (float)Math.PI * progress);
+
+                DrawData data = new DrawData(
+                    shieldTex,
+                    drawPos, 
+                    frame, 
+                    color, 
+                    0f, 
+                    origin, 
+                    scale,
+                    0, 
+                    0);
+                Main.playerDrawData.Add(data);
             }
         });
     }

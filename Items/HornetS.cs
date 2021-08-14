@@ -5,7 +5,7 @@ using Terraria.ModLoader;
 
 namespace LobotomyCorp.Items
 {
-	public class RealizedHornet : SEgoItem
+	public class HornetS : SEgoItem
 	{
 		public override void SetStaticDefaults() 
 		{

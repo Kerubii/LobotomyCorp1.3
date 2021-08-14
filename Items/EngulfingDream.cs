@@ -13,7 +13,7 @@ namespace LobotomyCorp.Items
         }
 
 		public override void SetDefaults() {
-			item.damage = 10;
+			item.damage = 9;
 			item.magic = true;
             item.mana = 3;
 			item.width = 26;
@@ -34,6 +34,16 @@ namespace LobotomyCorp.Items
         public override Vector2? HoldoutOffset()
         {
             return new Vector2(8, 0);
+        }
+
+        public override void AddRecipes()
+        {
+            ModRecipe recipe = new ModRecipe(mod);
+            recipe.AddIngredient(ItemID.Cloud, 30);
+            recipe.AddIngredient(ItemID.Feather, 3);    
+            recipe.AddIngredient(ItemID.Star, 8);
+            recipe.AddTile(TileID.Anvils);
+            recipe.SetResult(this);
         }
     }
 }
