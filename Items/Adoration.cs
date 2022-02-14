@@ -45,7 +45,7 @@ namespace LobotomyCorp.Items
             recipe.AddTile(TileID.MythrilAnvil);
             recipe.SetResult(this);
 
-            ModRecipe recipe = new ModRecipe(mod);
+            recipe = new ModRecipe(mod);
             recipe.AddIngredient(ItemID.Gel, 300);
             recipe.AddIngredient(ItemID.PinkGel, 20);
             recipe.AddIngredient(ItemID.TitaniumBar, 10);

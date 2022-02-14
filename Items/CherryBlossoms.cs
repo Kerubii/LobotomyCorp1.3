@@ -10,7 +10,7 @@ namespace LobotomyCorp.Items
 		public override void SetStaticDefaults() 
 		{
 			// DisplayName.SetDefault("Penitence"); // By default, capitalization in classnames will add spaces to the display name. You can customize the display name here by uncommenting this line.
-			Tooltip.SetDefault("Petals scatter from the fan like afterimages, ...\n" +
+			Tooltip.SetDefault("Petals scatter from the fan like afterimages...\n" +
                                "The spring breeze clad in cherry blossom petals is still cold and painful.");
 
         }
@@ -49,7 +49,7 @@ namespace LobotomyCorp.Items
         public override void MeleeEffects(Player player, Rectangle hitbox)
         {
             Dust dust;
-            dust = Main.dust[Terraria.Dust.NewDust(hitbox.TopLeft(), hitbox.Width, hitbox.Height, 205, 0f, 0f, 0, new Color(255, 255, 255), 1f)];
+            dust = Main.dust[Terraria.Dust.NewDust(hitbox.TopLeft(), hitbox.Width, hitbox.Height, mod.DustType("BlossomDust"), 0f, 0f, 0, new Color(255, 255, 255), 1f)];
         }
 
         public override void AddRecipes() 

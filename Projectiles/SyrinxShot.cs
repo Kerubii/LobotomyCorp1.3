@@ -30,7 +30,8 @@ namespace LobotomyCorp.Projectiles
         public override void AI() {
             if (Main.rand.Next(30) == 0)
             {
-                Dust.NewDust(projectile.position, 10, 10, 36);
+                int i = Dust.NewDust(projectile.position, 10, 10, 36);
+                Main.dust[i].noGravity = true;
             }
         }
 

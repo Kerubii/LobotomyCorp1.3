@@ -19,6 +19,11 @@ namespace LobotomyCorp
         public int BeakTarget = 0;
 		public bool BODExecute = false;
 
+        public bool MatchstickBurn = false;
+        public int MatchstickBurnTime = 0;
+
+        public bool PleasureDebuff = false;
+
         public int QueenBeeSpore = 0;
         public bool QueenBeeLarva = true;
 
@@ -40,6 +45,10 @@ namespace LobotomyCorp
         {
             if (BeakTarget > 0)
                 BeakTarget--;
+
+            MatchstickBurn = false;
+
+            PleasureDebuff = false;
 
             if (QueenBeeSpore > 0)
                 QueenBeeSpore--;
@@ -108,6 +117,16 @@ namespace LobotomyCorp
 
         public override void UpdateLifeRegen(NPC npc, ref int damage)
         {
+            if (MatchstickBurn)
+            {
+                npc.lifeRegen -= MatchstickBurnTime * 2;
+                damage += MatchstickBurnTime;
+            }
+            if (PleasureDebuff)
+            {
+                npc.lifeRegen -= 10;
+                damage += 5;
+            }
             if (QueenBeeSpore > 0)
             {
                 npc.lifeRegen -= 30;
@@ -125,6 +144,15 @@ namespace LobotomyCorp
         {
             if (BeakTarget > 0)
                 drawColor = Color.Red;
+
+            if (MatchstickBurn)
+            {
+                if (MatchstickBurnTime < 20)
+                {
+                    if (Main.rand.Next(25 - MatchstickBurnTime) == 0)
+                        Dust.NewDust(npc.position, npc.width, npc.height, DustID.Fire);
+                }
+            }
         }
 
         public override void PostDraw(NPC npc, SpriteBatch spriteBatch, Color drawColor)

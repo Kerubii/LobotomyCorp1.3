@@ -29,7 +29,7 @@ namespace LobotomyCorp.Items
 			item.knockBack = 6;
 			item.value = 10000;
 			item.rare = 1;
-            item.shootSpeed = 4.4f;
+            item.shootSpeed = 3.8f;
             item.shoot = mod.ProjectileType("Amrita");
 
             item.noUseGraphic = true;
