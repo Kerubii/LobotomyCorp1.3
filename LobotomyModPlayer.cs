@@ -18,6 +18,7 @@ namespace LobotomyCorp
         public bool Desync = false;
 
         public int HeavyWeaponHelper = 0;
+        public float ChargeWeaponHelper = 0;
 
         public bool RedShield = false;
         public bool WhiteShield = false;
@@ -40,6 +41,8 @@ namespace LobotomyCorp
         public int BeakParry = 0;
         public int BeakPunish = 0;
 
+        public int BlackSwanParryChance = 0;
+
         public float FaintAromaPetal = 0;
         public int FaintAromaPetalMax = 60;
         public float FaintAromaDecay = 0.1f;
@@ -50,6 +53,10 @@ namespace LobotomyCorp
 
         public bool giftFourthMatchFlame = false;
         public int FourthMatchFlameR = 0;
+        public bool MatchstickBurn = false;
+        public int MatchstickBurnTime = 0;
+
+        public bool PleasureDebuff = false;
 
         public int GrinderMk2Order = 0;
         public static int GrinderMk2BatteryMax = 5600;
@@ -83,6 +90,9 @@ namespace LobotomyCorp
 
             if (HeavyWeaponHelper > 0)
                 HeavyWeaponHelper--;
+
+            if (player.itemAnimation == 0)
+                ChargeWeaponHelper = 0;
             
             RedShield = false;
             WhiteShield = false;
@@ -95,12 +105,17 @@ namespace LobotomyCorp
             if (BeakPunish > 0)
                 BeakPunish--;
 
+            BlackSwanParryChance = 0;
+
             if (FaintAromaPetal > 0)
             {
                 FaintAromaPetal -= FaintAromaDecay;
             }
 
             giftFourthMatchFlame = false;
+            MatchstickBurn = false;
+
+            PleasureDebuff = false;
 
             RealizedSwordShoot = false;
             if (RealizedWingbeatMeal >= 0 && (!Main.npc[RealizedWingbeatMeal].active || Main.npc[RealizedWingbeatMeal].life <= 0))
@@ -182,6 +197,24 @@ namespace LobotomyCorp
 
         public override void UpdateBadLifeRegen()
         {
+            if (MatchstickBurn)
+            {
+                if (player.lifeRegen > 0)
+                {
+                    player.lifeRegen = 0;
+                }
+                player.lifeRegenTime = 0;
+                player.lifeRegen = MatchstickBurnTime * 2;
+            }
+            if (PleasureDebuff)
+            {
+                if (player.lifeRegen > 0)
+                {
+                    player.lifeRegen = 0;
+                }
+                player.lifeRegenTime = 0;
+                player.lifeRegen = -5;
+            }
             if (WingbeatGluttony)
             {
                 if (player.lifeRegen > 0)
@@ -240,6 +273,10 @@ namespace LobotomyCorp
                     damage /= 2;
                 BeakPunish = 180;
                 LobotomyGlobalNPC.LNPC(npc).BeakTarget = 180;
+            }
+            if (BlackSwanParryChance > 0 && Main.rand.Next(100) < BlackSwanParryChance && player.CanParryAgainst(player.Hitbox, npc.Hitbox, npc.velocity))
+            {
+                player.ApplyDamageToNPC(npc, damage, 0, player.direction, false);
             }
         }
 

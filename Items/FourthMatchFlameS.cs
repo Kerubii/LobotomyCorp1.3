@@ -14,7 +14,8 @@ namespace LobotomyCorp.Items
                                "\"I am coming to you. You, who will be reduced to ash like me.\"");
             PassiveText = "Warmth of a Flame - 400% increased damage on fourth use\n" +
                           "Fourth Match - Alt attack makes you self destruct while on fourth use that deals 4000% increased damage" +
-                          "|Scorching Embers - Inflicts Onfire on target, also inflicts on user every fourth use\n" +
+                          "Matchstick - Inflicts fire that gets stronger the more it is inflicted" +
+                          "|Scorching Embers - Sets self on fire every fourth use\n" +
                           "Burning Regret - Has a 0.1% chance to trigger Fourth Match on every fourth use";
 		}
 
@@ -94,6 +95,22 @@ namespace LobotomyCorp.Items
             if (LobotomyModPlayer.ModPlayer(player).FourthMatchFlameR > 3)
                 add += 5f;
         }*/
+
+        public override void OnHitNPC(Player player, NPC target, int damage, float knockBack, bool crit)
+        {
+            if (target.HasBuff(mod.BuffType("Matchstick")))
+                target.buffTime[target.FindBuffIndex(mod.BuffType("Matchstick"))] += 120;
+            else
+                target.AddBuff(mod.BuffType("Matchstick"), 120);
+        }
+
+        public override void OnHitPvp(Player player, Player target, int damage, bool crit)
+        {
+            if (target.HasBuff(mod.BuffType("Matchstick")))
+                target.buffTime[target.FindBuffIndex(mod.BuffType("Matchstick"))] += 120;
+            else
+                target.AddBuff(mod.BuffType("Matchstick"), 120);
+        }
 
         public override bool AltFunctionUse(Player player)
         {
