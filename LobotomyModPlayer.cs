@@ -41,6 +41,8 @@ namespace LobotomyCorp
         public int BeakParry = 0;
         public int BeakPunish = 0;
 
+        public int TwilightSpecial = 10;
+
         public int BlackSwanParryChance = 0;
 
         public float FaintAromaPetal = 0;

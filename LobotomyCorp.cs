@@ -23,6 +23,8 @@ namespace LobotomyCorp
         public static Texture2D ArcanaSlaveLaser = null;
         public static Texture2D ArcanaSlaveBackground = null;
 
+        public static Texture2D MagicBulletBullet = null;
+
         public static Texture2D RedShield = null;
         public static Texture2D WhiteShield = null;
         public static Texture2D BlackShield = null;
@@ -30,6 +32,12 @@ namespace LobotomyCorp
 
         public static Color PositivePE => new Color(18,255,86);
         public static Color NegativePE => new Color(239, 77, 61);
+
+        public static Color RedDamage => new Color(203, 39, 70);
+        public static Color WhiteDamage => new Color(238, 230, 191);
+        public static Color BlackDamage => new Color(127, 75, 129);
+        public static Color PaleDamage => new Color(65, 244, 188);
+
         public static Color ZayinRarity => new Color(33, 249, 0);
         public static Color TethRarity => new Color(26, 161, 255);
         public static Color HeRarity => new Color(255, 250, 4);
@@ -57,6 +65,9 @@ namespace LobotomyCorp
                 PremultiplyTexture(ArcanaSlaveLaser);
                 ArcanaSlaveBackground = GetTexture("Projectiles/QueenLaser/CircleBackground");
                 PremultiplyTexture(ArcanaSlaveBackground);
+
+                MagicBulletBullet = GetTexture("Projectiles/MagicBulletBullet");
+                PremultiplyTexture(MagicBulletBullet);
 
                 RedShield = GetTexture("Misc/BulletShield/RedShield");
                 PremultiplyTexture(RedShield);
@@ -91,6 +102,8 @@ namespace LobotomyCorp
         {
             ArcanaSlaveLaser = null;
             ArcanaSlaveBackground = null;
+
+            MagicBulletBullet = null;
 
             RedShield = null;
             WhiteShield = null;

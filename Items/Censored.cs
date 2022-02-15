@@ -17,23 +17,26 @@ namespace LobotomyCorp.Items
 
 		public override void SetDefaults() 
 		{
-			item.damage = 46;
+			item.damage = 42;
+			item.knockBack = 6;
+			item.scale = 1.3f;
 			item.melee = true;
 			item.width = 40;
 			item.height = 40;
+
 			item.useTime = 22;
 			item.useAnimation = 22;
 			item.useStyle = 5;
-			item.knockBack = 6;
+
 			item.value = 10000;
 			item.rare = 2;
 			item.UseSound = SoundID.Item1;
 			item.autoReuse = true;
-			item.shoot = mod.ProjectileType("CensoredGrab");
-			item.shootSpeed = 1f;
-			item.scale = 1.3f;
 			item.noMelee = true;
 			item.noUseGraphic = true;
+
+			item.shoot = mod.ProjectileType("CensoredGrab");
+			item.shootSpeed = 1f;
 		}
 		public override bool CanUseItem(Player player)
 		{

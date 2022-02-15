@@ -17,7 +17,7 @@ namespace LobotomyCorp.Items
 
 		public override void SetDefaults() 
 		{
-			item.damage = 24;
+			item.damage = 30;
 			item.melee = true;
 			item.width = 40;
 			item.height = 40;
@@ -27,8 +27,8 @@ namespace LobotomyCorp.Items
 
 			item.useStyle = ItemUseStyleID.HoldingOut;
 			item.knockBack = 6;
-			item.value = 10000;
-			item.rare = 1;
+			item.value = 20000;
+			item.rare = ItemRarityID.Purple;
             item.shootSpeed = 3.8f;
             item.shoot = mod.ProjectileType("Amrita");
 
