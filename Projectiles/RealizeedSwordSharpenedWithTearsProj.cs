@@ -81,7 +81,7 @@ namespace LobotomyCorp.Projectiles
                 projectile.velocity = delta;
                 projectile.timeLeft = 300;
 
-                if (player.HeldItem.type != mod.ItemType("RealizedSwordSharpenedWithTears"))
+                if (player.HeldItem.type != mod.ItemType("SwordSharpenedWithTearsS"))
                     projectile.Kill();
 
                 projectile.localAI[0]++;
@@ -259,6 +259,10 @@ namespace LobotomyCorp.Projectiles
             spriteBatch.Begin(SpriteSortMode.Immediate, BlendState.AlphaBlend, SamplerState.LinearClamp, DepthStencilState.Default, RasterizerState.CullNone, null, Main.GameViewMatrix.ZoomMatrix);*/
 
             //GameShaders.Misc["TrailingShader"].Apply();
+
+            //SlashTrail trail = new SlashTrail();
+            //trail.DrawTrail(projectile, LobotomyCorp.LobcorpShaders["TwilightSlash"]);
+
             return false;
         }
     }

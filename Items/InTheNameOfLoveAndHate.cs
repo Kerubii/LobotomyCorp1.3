@@ -35,8 +35,9 @@ namespace LobotomyCorp.Items
 
         public override bool Shoot(Player player, ref Vector2 position, ref float speedX, ref float speedY, ref int type, ref int damage, ref float knockBack)
         {
-            type = ProjectileID.Starfury;
-            return base.Shoot(player, ref position, ref speedX, ref speedY, ref type, ref damage, ref knockBack);
+            type = mod.ProjectileType("StarShot");
+			Projectile.NewProjectile(position, new Vector2(speedX, speedY), type, damage, knockBack, player.whoAmI, Main.rand.Next(4));
+			return false;
         }
 
         public override Vector2? HoldoutOffset()

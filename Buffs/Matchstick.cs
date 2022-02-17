@@ -18,7 +18,10 @@ namespace LobotomyCorp.Buffs
 		public override void Update(NPC npc, ref int BuffIndex)
 		{
             LobotomyGlobalNPC.LNPC(npc).MatchstickBurnTime = (int)Math.Ceiling(npc.buffTime[BuffIndex] / 60f);
-			LobotomyGlobalNPC.LNPC(npc).MatchstickBurn = true;
+            if (npc.buffTime[BuffIndex] > 6000)
+                npc.buffTime[BuffIndex] = 6000;
+
+            LobotomyGlobalNPC.LNPC(npc).MatchstickBurn = true;
 		}
 
         public override void Update(Player player, ref int buffIndex)

@@ -78,7 +78,7 @@ namespace LobotomyCorp.Projectiles
 
             Vector2 targetPos = ownerMountedCenter + new Vector2(32 * dirX, 42 * dirY);
             float speed = 6f;
-            if (player.HeldItem.type == mod.ItemType("RealizedGrinderMk2"))
+            if (player.HeldItem.type == mod.ItemType("GrinderMk2S"))
             {
                 if (player.channel && player.altFunctionUse != 2)
                 {

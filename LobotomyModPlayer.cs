@@ -41,6 +41,8 @@ namespace LobotomyCorp
         public int BeakParry = 0;
         public int BeakPunish = 0;
 
+        public int TwilightSpecial = 10;
+
         public int BlackSwanParryChance = 0;
 
         public float FaintAromaPetal = 0;
@@ -290,9 +292,9 @@ namespace LobotomyCorp
 
         public override void DrawEffects(PlayerDrawInfo drawInfo, ref float r, ref float g, ref float b, ref float a, ref bool fullBright)
         {
-            if (BeakParry > 0 || BeakPunish > 0)
+            /*if (BeakParry > 0 || BeakPunish > 0)
             {
-                /*Color color = Color.Red;
+                Color color = Color.Red;
                 Color drawColor = new Color(r, g, b, a);
                 float BeakRed = BeakParry > BeakPunish ? BeakParry : BeakPunish;
                 if (BeakRed <= 10)
@@ -307,13 +309,13 @@ namespace LobotomyCorp
                 r = color.R;
                 g = color.G;
                 b = color.B;
-                a = 255;*/
+                a = 255;
                 fullBright = true;
                 if (Main.netMode != NetmodeID.Server)
                 {
 
                 }
-            }
+            }*/
         }
 
         public override bool PreHurt(bool pvp, bool quiet, ref int damage, ref int hitDirection, ref bool crit, ref bool customDamage, ref bool playSound, ref bool genGore, ref PlayerDeathReason damageSource)
@@ -371,7 +373,7 @@ namespace LobotomyCorp
             if (giftFourthMatchFlame)
                 return;
             player.AddBuff(BuffID.OnFire, 120);
-            if (forced || (Main.rand.Next(100) == 0 && (player.statLife == player.statLifeMax2 || (float)(player.statLife / (float)player.statLifeMax2) < 0.25f)))
+            if (forced)// || (Main.rand.Next(100) == 0 && (player.statLife == player.statLifeMax2 || (float)(player.statLife / (float)player.statLifeMax2) < 0.25f)))
             {
                 Projectile.NewProjectile(player.Center, Vector2.Zero, mod.ProjectileType("FourthMatchFlameExplosion"), 500, 10f, player.whoAmI);
                 player.statLife = 0;

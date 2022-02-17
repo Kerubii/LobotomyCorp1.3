@@ -30,6 +30,7 @@ namespace LobotomyCorp.Projectiles
             projectile.melee = true;
             projectile.tileCollide = false;
             projectile.friendly = true;
+            projectile.hostile = false;
         }
 
         public override void AI() {

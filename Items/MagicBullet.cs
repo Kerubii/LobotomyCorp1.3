@@ -9,7 +9,8 @@ namespace LobotomyCorp.Items
 	{
 		public override void SetStaticDefaults() {
 			Tooltip.SetDefault("Though the original's power couldn't be fully extracted, the magic this holds is still potent.\n" +
-                               "The weapon's bullets travel across the corridor, along the horizon.");
+                               "The weapon's bullets travel across the corridor, along the horizon.\n" +
+                               "Pierces through foes and friends alike");
         }
 
 		public override void SetDefaults() {
@@ -30,6 +31,14 @@ namespace LobotomyCorp.Items
 			item.shootSpeed = 8f; // the speed of the projectile (measured in pixels per frame)
 			item.useAmmo = AmmoID.Bullet; // The "ammo Id" of the ammo item that this weapon uses. Note that this is not an item Id, but just a magic value.
 		}
+
+        public override bool Shoot(Player player, ref Vector2 position, ref float speedX, ref float speedY, ref int type, ref int damage, ref float knockBack)
+        {
+            position += Vector2.Normalize(new Vector2(speedX, speedY)) * 54f;
+
+            type = mod.ProjectileType("MagicBulletBullet");
+            return base.Shoot(player, ref position, ref speedX, ref speedY, ref type, ref damage, ref knockBack);
+        }
 
         public override Vector2? HoldoutOffset()
         {

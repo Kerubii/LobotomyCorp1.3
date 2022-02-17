@@ -49,7 +49,7 @@ namespace LobotomyCorp.Items
         public override void MeleeEffects(Player player, Rectangle hitbox)
         {
             Dust dust;
-            dust = Main.dust[Terraria.Dust.NewDust(hitbox.TopLeft(), hitbox.Width, hitbox.Height, mod.DustType("BlossomDust"), 0f, 0f, 0, new Color(255, 255, 255), 1f)];
+            dust = Main.dust[Terraria.Dust.NewDust(new Vector2(hitbox.X, hitbox.Y), hitbox.Width, hitbox.Height, mod.DustType("BlossomDust"), 0f, 0f, 0, new Color(255, 255, 255), 1f)];
         }
 
         public override void AddRecipes() 

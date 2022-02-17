@@ -152,6 +152,18 @@ namespace LobotomyCorp
                     if (Main.rand.Next(25 - MatchstickBurnTime) == 0)
                         Dust.NewDust(npc.position, npc.width, npc.height, DustID.Fire);
                 }
+                else
+                {
+                    if (Main.rand.Next(2) == 0)
+                    {
+                        float scale = 0.5f + MatchstickBurnTime / 40f;
+                        if (scale > 4f)
+                            scale = 4f;
+                        Dust d = Main.dust[Dust.NewDust(npc.position, npc.width, npc.height, DustID.Fire)];
+                        d.scale = scale;
+                        d.noGravity = true;
+                    }
+                }
             }
         }
 

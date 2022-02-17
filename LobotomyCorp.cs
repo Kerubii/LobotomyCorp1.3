@@ -6,6 +6,8 @@ using Terraria.Graphics;
 using Terraria.ModLoader;
 using Microsoft.Xna.Framework;
 using Terraria.Localization;
+using LobotomyCorp.Utils;
+using System.Collections.Generic;
 
 namespace LobotomyCorp
 {
@@ -23,6 +25,8 @@ namespace LobotomyCorp
         public static Texture2D ArcanaSlaveLaser = null;
         public static Texture2D ArcanaSlaveBackground = null;
 
+        public static Texture2D MagicBulletBullet = null;
+
         public static Texture2D RedShield = null;
         public static Texture2D WhiteShield = null;
         public static Texture2D BlackShield = null;
@@ -30,6 +34,12 @@ namespace LobotomyCorp
 
         public static Color PositivePE => new Color(18,255,86);
         public static Color NegativePE => new Color(239, 77, 61);
+
+        public static Color RedDamage => new Color(203, 39, 70);
+        public static Color WhiteDamage => new Color(238, 230, 191);
+        public static Color BlackDamage => new Color(127, 75, 129);
+        public static Color PaleDamage => new Color(65, 244, 188);
+
         public static Color ZayinRarity => new Color(33, 249, 0);
         public static Color TethRarity => new Color(26, 161, 255);
         public static Color HeRarity => new Color(255, 250, 4);
@@ -39,6 +49,8 @@ namespace LobotomyCorp
         public static ModHotKey SynchronizeEGO;
         public static ModHotKey PassiveShow;
         public static bool ExtraPassiveShow = false;
+
+        public static Dictionary<string, CustomShaderData> LobcorpShaders = new Dictionary<string, CustomShaderData>();
 
         public static void RiskLevelResist(ref int damage, RiskLevel ego, RiskLevel risk)
         {
@@ -58,6 +70,9 @@ namespace LobotomyCorp
                 ArcanaSlaveBackground = GetTexture("Projectiles/QueenLaser/CircleBackground");
                 PremultiplyTexture(ArcanaSlaveBackground);
 
+                MagicBulletBullet = GetTexture("Projectiles/MagicBulletBullet");
+                PremultiplyTexture(MagicBulletBullet);
+
                 RedShield = GetTexture("Misc/BulletShield/RedShield");
                 PremultiplyTexture(RedShield);
                 WhiteShield = GetTexture("Misc/BulletShield/WhiteShield");
@@ -69,20 +84,34 @@ namespace LobotomyCorp
 
                 if (Main.netMode != NetmodeID.Server)
                 {
-                    Ref<Effect> punishingRef = new Ref<Effect>(GetEffect("Effects/PunishingBird"));
+                    //Ref<Effect> punishingRef = new Ref<Effect>(GetEffect("Effects/PunishingBird"));
                     Ref<Effect> TrailRef = new Ref<Effect>(GetEffect("Effects/SwordTrail"));
+                    Ref<Effect> TestTrail = new Ref<Effect>(GetEffect("Effects/TestTrail"));
                     Ref<Effect> ArcanaSlaveRef = new Ref<Effect>(GetEffect("Effects/ArcanaSlave"));
+                    Ref<Effect> FourthMatchFlame = new Ref<Effect>(GetEffect("Effects/FourthMatchFlame"));
 
-                    GameShaders.Misc["Punish"] = new MiscShaderData(punishingRef, "PunishingBird");
+                    //GameShaders.Misc["Punish"] = new MiscShaderData(punishingRef, "PunishingBird");
 
                     GameShaders.Misc["LobotomyCorp:Resize"] = new MiscShaderData(ArcanaSlaveRef, "ArcanaResize");
 
-                    Texture2D blankTexture = TextureManager.BlankTexture;
+                    //Texture2D blankTexture = TextureManager.BlankTexture;
 
-                    TextureManager.BlankTexture = GetTexture("Projectiles/Help");
-                    GameShaders.Misc["TrailingShader"] = new MiscShaderData(TrailRef, "Trail").UseImage("f");
+                    //TextureManager.BlankTexture = GetTexture("Projectiles/Help");
+                    //GameShaders.Misc["TrailingShader"] = new MiscShaderData(TrailRef, "Trail").UseImage("f");
 
-                    TextureManager.BlankTexture = blankTexture;
+                    //LobcorpShaders["FairySlash"] = new CustomShaderData(TrailRef, "Trail").UseImage1(this, "Projectiles/Help");
+                    LobcorpShaders["TestSlash"] = new CustomShaderData(TestTrail, "TestTrail").UseImage1(this, "Projectiles/TestSlash");
+                    //LobcorpShaders["TwilightSlash"] = new CustomShaderData(TrailRef, "Trail").UseImage1(this, "Projectiles/TwilightTrail");
+
+                    CustomShaderData shader = new CustomShaderData(TrailRef, "Trail").UseImage1(this, "Projectiles/MimicrySBlur2A");
+                    shader.UseImage2(this, "Projectiles/MimicrySBlur2");
+                    LobcorpShaders["MimicrySlash"] = shader;
+
+                    shader = new CustomShaderData(FourthMatchFlame, "FourthMatch").UseImage1(this, "Projectiles/FourthMatchFlameGigaSlashA");
+                    shader.UseImage2(this, "Projectiles/FourthMatchFlameGigaSlashFire");
+                    shader.UseImage3(this, "Projectiles/FourthMatchFlameGigaSlashB");
+                    LobcorpShaders["FourthMatchFlame"] = shader;
+                    //TextureManager.BlankTexture = blankTexture;
                 }
             }
         }
@@ -91,6 +120,8 @@ namespace LobotomyCorp
         {
             ArcanaSlaveLaser = null;
             ArcanaSlaveBackground = null;
+
+            MagicBulletBullet = null;
 
             RedShield = null;
             WhiteShield = null;

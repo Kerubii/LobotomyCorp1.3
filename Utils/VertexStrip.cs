@@ -44,7 +44,7 @@ namespace LobotomyCorp.Utils
 
 		private List<float> _temporaryRotationsCache = new List<float>();
 
-		public void PrepareStrip(Vector2[] positions, float[] rotations, StripColorFunction colorFunction, StripHalfWidthFunction widthFunction, Vector2 offsetForAllPositions = default(Vector2), int? expectedVertexPairsAmount = null, bool includeBacksides = false)
+		public void PrepareStrip(Vector2[] positions, float[] rotations, StripColorFunction colorFunction, StripHalfWidthFunction widthFunction, Vector2 offsetForAllPositions = default(Vector2), float offsetForRotation = 0, int? expectedVertexPairsAmount = null, bool includeBacksides = false)
 		{
 			int num = positions.Length;
 			int num2 = _vertexAmountCurrentlyMaintained = num * 2;
@@ -66,10 +66,40 @@ namespace LobotomyCorp.Utils
 					break;
 				}
 				Vector2 pos = positions[i] + offsetForAllPositions;
-				float rot = MathHelper.WrapAngle(rotations[i]);
+				float rot = MathHelper.WrapAngle(rotations[i] + offsetForRotation);
 				int indexOnVertexArray = i * 2;
 				float progressOnStrip = (float)i / (float)(num3 - 1);
 				AddVertex(colorFunction, widthFunction, pos, rot, indexOnVertexArray, progressOnStrip);
+			}
+			PrepareIndices(num, includeBacksides);
+		}
+
+		public void PrepareEllipse(Vector2[] positions, Vector2[] positions2, StripColorFunction colorFunction, Vector2 offsetForAllPositions = default(Vector2), float offsetForRotation = 0, int? expectedVertexPairsAmount = null, bool includeBacksides = false)
+		{
+			int num = positions.Length;
+			int num2 = _vertexAmountCurrentlyMaintained = num * 2;
+			if (_vertices.Length < num2)
+			{
+				Array.Resize(ref _vertices, num2);
+			}
+			int num3 = num;
+			if (expectedVertexPairsAmount.HasValue)
+			{
+				num3 = expectedVertexPairsAmount.Value;
+			}
+			for (int i = 0; i < num; i++)
+			{
+				if (positions[i] == Vector2.Zero)
+				{
+					num = i - 1;
+					_vertexAmountCurrentlyMaintained = num * 2;
+					break;
+				}
+				Vector2 pos = positions[i] + offsetForAllPositions;
+				Vector2 pos2 = positions2[i] + offsetForAllPositions;
+				int indexOnVertexArray = i * 2;
+				float progressOnStrip = (float)i / (float)(num3 - 1);
+				AddVertex2(colorFunction, pos, pos2, indexOnVertexArray, progressOnStrip);
 			}
 			PrepareIndices(num, includeBacksides);
 		}
@@ -166,6 +196,21 @@ namespace LobotomyCorp.Utils
 			Vector2 value = MathHelper.WrapAngle(rot - (float)Math.PI / 2f).ToRotationVector2() * scaleFactor;
 			_vertices[indexOnVertexArray].Position = pos + value;
 			_vertices[indexOnVertexArray + 1].Position = pos - value;
+			_vertices[indexOnVertexArray].TexCoord = new Vector2(progressOnStrip, 1f);
+			_vertices[indexOnVertexArray + 1].TexCoord = new Vector2(progressOnStrip, 0f);
+			_vertices[indexOnVertexArray].Color = color;
+			_vertices[indexOnVertexArray + 1].Color = color;
+		}
+
+		private void AddVertex2(StripColorFunction colorFunction, Vector2 pos, Vector2 pos2, int indexOnVertexArray, float progressOnStrip)
+		{
+			while (indexOnVertexArray + 1 >= _vertices.Length)
+			{
+				Array.Resize(ref _vertices, _vertices.Length * 2);
+			}
+			Color color = colorFunction(progressOnStrip);
+			_vertices[indexOnVertexArray].Position = pos;
+			_vertices[indexOnVertexArray + 1].Position = pos2;
 			_vertices[indexOnVertexArray].TexCoord = new Vector2(progressOnStrip, 1f);
 			_vertices[indexOnVertexArray + 1].TexCoord = new Vector2(progressOnStrip, 0f);
 			_vertices[indexOnVertexArray].Color = color;

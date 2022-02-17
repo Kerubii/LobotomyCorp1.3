@@ -8,7 +8,7 @@ namespace LobotomyCorp.Items
 	{
 		public override void SetStaticDefaults() {
 			Tooltip.SetDefault("A big mug filled with mysterious slime that never runs out.\n" +
-                               "ItÅfs the byproduct of some horrid experiment in a certain laboratory that eventually failed.");
+                               "ItÅ's the byproduct of some horrid experiment in a certain laboratory that eventually failed.");
 
         }
 
@@ -27,7 +27,7 @@ namespace LobotomyCorp.Items
 			item.UseSound = SoundID.Item11;
 			item.autoReuse = true;
             item.shoot = mod.ProjectileType("MeltyLove");
-            item.shootSpeed = 6.8f;
+            item.shootSpeed = 7.6f;
 		}
 
         public override Vector2? HoldoutOffset()
