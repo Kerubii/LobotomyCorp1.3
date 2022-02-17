@@ -77,8 +77,14 @@ namespace LobotomyCorp.Items
             return player.ownedProjectileCounts[item.shoot] < 1;
         }
 
-        public override void AddRecipes() 
+		public override void AddRecipes()
 		{
+			ModRecipe recipe = new ModRecipe(mod);
+			recipe.AddIngredient(ItemID.DarkLance);
+			recipe.AddIngredient(ItemID.BlackDye);
+			recipe.AddIngredient(ItemID.EbonsandBlock, 100);
+			recipe.AddTile(TileID.Anvils);
+			recipe.SetResult(this);
 		}
 	}
 }

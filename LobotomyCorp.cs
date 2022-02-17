@@ -6,6 +6,8 @@ using Terraria.Graphics;
 using Terraria.ModLoader;
 using Microsoft.Xna.Framework;
 using Terraria.Localization;
+using LobotomyCorp.Utils;
+using System.Collections.Generic;
 
 namespace LobotomyCorp
 {
@@ -48,6 +50,8 @@ namespace LobotomyCorp
         public static ModHotKey PassiveShow;
         public static bool ExtraPassiveShow = false;
 
+        public static Dictionary<string, CustomShaderData> LobcorpShaders = new Dictionary<string, CustomShaderData>();
+
         public static void RiskLevelResist(ref int damage, RiskLevel ego, RiskLevel risk)
         {
 
@@ -80,20 +84,34 @@ namespace LobotomyCorp
 
                 if (Main.netMode != NetmodeID.Server)
                 {
-                    Ref<Effect> punishingRef = new Ref<Effect>(GetEffect("Effects/PunishingBird"));
+                    //Ref<Effect> punishingRef = new Ref<Effect>(GetEffect("Effects/PunishingBird"));
                     Ref<Effect> TrailRef = new Ref<Effect>(GetEffect("Effects/SwordTrail"));
+                    Ref<Effect> TestTrail = new Ref<Effect>(GetEffect("Effects/TestTrail"));
                     Ref<Effect> ArcanaSlaveRef = new Ref<Effect>(GetEffect("Effects/ArcanaSlave"));
+                    Ref<Effect> FourthMatchFlame = new Ref<Effect>(GetEffect("Effects/FourthMatchFlame"));
 
-                    GameShaders.Misc["Punish"] = new MiscShaderData(punishingRef, "PunishingBird");
+                    //GameShaders.Misc["Punish"] = new MiscShaderData(punishingRef, "PunishingBird");
 
                     GameShaders.Misc["LobotomyCorp:Resize"] = new MiscShaderData(ArcanaSlaveRef, "ArcanaResize");
 
-                    Texture2D blankTexture = TextureManager.BlankTexture;
+                    //Texture2D blankTexture = TextureManager.BlankTexture;
 
-                    TextureManager.BlankTexture = GetTexture("Projectiles/Help");
-                    GameShaders.Misc["TrailingShader"] = new MiscShaderData(TrailRef, "Trail").UseImage("f");
+                    //TextureManager.BlankTexture = GetTexture("Projectiles/Help");
+                    //GameShaders.Misc["TrailingShader"] = new MiscShaderData(TrailRef, "Trail").UseImage("f");
 
-                    TextureManager.BlankTexture = blankTexture;
+                    //LobcorpShaders["FairySlash"] = new CustomShaderData(TrailRef, "Trail").UseImage1(this, "Projectiles/Help");
+                    LobcorpShaders["TestSlash"] = new CustomShaderData(TestTrail, "TestTrail").UseImage1(this, "Projectiles/TestSlash");
+                    //LobcorpShaders["TwilightSlash"] = new CustomShaderData(TrailRef, "Trail").UseImage1(this, "Projectiles/TwilightTrail");
+
+                    CustomShaderData shader = new CustomShaderData(TrailRef, "Trail").UseImage1(this, "Projectiles/MimicrySBlur2A");
+                    shader.UseImage2(this, "Projectiles/MimicrySBlur2");
+                    LobcorpShaders["MimicrySlash"] = shader;
+
+                    shader = new CustomShaderData(FourthMatchFlame, "FourthMatch").UseImage1(this, "Projectiles/FourthMatchFlameGigaSlashA");
+                    shader.UseImage2(this, "Projectiles/FourthMatchFlameGigaSlashFire");
+                    shader.UseImage3(this, "Projectiles/FourthMatchFlameGigaSlashB");
+                    LobcorpShaders["FourthMatchFlame"] = shader;
+                    //TextureManager.BlankTexture = blankTexture;
                 }
             }
         }

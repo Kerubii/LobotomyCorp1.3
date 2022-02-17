@@ -20,32 +20,26 @@ float uSaturation;
 float4 uSourceRect;
 float2 uZoom;
 
-float4 Trailing(float4 color : COLOR0, float2 coords : TEXCOORD0) : COLOR0
+float4 TestTrailShader(float4 color : COLOR0, float2 coords : TEXCOORD0) : COLOR0
 {
-    color = tex2D(uImage2, coords);
-    float4 color2 = tex2D(uImage1, coords);
-    color.rgba *= color2.r;
-    
-    if (uOpacity < 0.05) 
+    color += tex2D(uImage1, coords);
+
+    if (color.r < uOpacity)
+        color.rgba = 0;
+    else if (color.r < uOpacity + 0.1)
     {
-        color.rgba *= uOpacity / 0.05;
+        color.rgba *= (color.r - uOpacity) / 0.1;
     }
-    else if (uOpacity > 0.5)
-    {
-        float range = (uOpacity - 0.5) / 0.5;
-        if (color2.r < range)
-            color.rgba = 0;
-        else if (color2.r < range + 0.25)
-            color.rgba *= (color2.r - range) / 0.25;
-    }
+
+	color *= color.r * (1 - coords.x);
 
 	return color;
 }
 
 technique Technique1
 {
-    pass Trail
+    pass TestTrail
     {
-        PixelShader = compile ps_2_0 Trailing();
+        PixelShader = compile ps_2_0 TestTrailShader();
     }
 }

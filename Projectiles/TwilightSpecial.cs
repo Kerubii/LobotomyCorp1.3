@@ -1,4 +1,5 @@
-﻿using Microsoft.Xna.Framework;
+﻿using LobotomyCorp.Utils;
+using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using System;
 using Terraria;
@@ -12,6 +13,8 @@ namespace LobotomyCorp.Projectiles
     {
         public override void SetStaticDefaults() {
             //DisplayName.SetDefault("Spear");
+            ProjectileID.Sets.TrailCacheLength[projectile.type] = 6;
+            ProjectileID.Sets.TrailingMode[projectile.type] = 2;
         }
 
         public override void SetDefaults() {
@@ -36,7 +39,7 @@ namespace LobotomyCorp.Projectiles
             Player projOwner = Main.player[projectile.owner];
             Vector2 ownerMountedCenter = projOwner.RotatedRelativePoint(projOwner.MountedCenter, true);
             projectile.spriteDirection = Math.Sign(projectile.velocity.X);
-            projOwner.heldProj = projectile.whoAmI;
+            //projOwner.heldProj = projectile.whoAmI;
             projOwner.itemTime = projOwner.itemAnimation;
 
             /*if (projectile.ai[1] == 0)
@@ -133,14 +136,14 @@ namespace LobotomyCorp.Projectiles
                 projOwner.immune = true;
                 projOwner.immuneTime = 15;
                 projOwner.immuneNoBlink = true;
-                projOwner.armorEffectDrawShadow = true;
+                //projOwner.armorEffectDrawShadow = true;
             }
 
 
             Vector2 velRot = new Vector2(1, 0).RotatedBy(rot);
             projOwner.itemRotation = (float)Math.Atan2(velRot.Y * projectile.direction, velRot.X * projectile.direction);
             projOwner.direction = projectile.spriteDirection;
-            projectile.rotation = rot + MathHelper.ToRadians(projectile.spriteDirection == 1 ? 45 : 135);
+            projectile.rotation = rot;// + MathHelper.ToRadians(projectile.spriteDirection == 1 ? 45 : 135);
 
             projectile.Center = ownerMountedCenter + (80 + projectile.ai[0]) * velRot;
 
@@ -231,6 +234,7 @@ namespace LobotomyCorp.Projectiles
             Vector2 position = ownerMountedCenter - Main.screenPosition;
             Vector2 originOffset = new Vector2(projectile.ai[0] + 12, 0).RotatedBy(MathHelper.ToRadians(projectile.direction == 1 ? 135 : 45));
             Vector2 origin = new Vector2((projectile.spriteDirection == 1 ? 9 : 74), 74) + originOffset;
+            float rotation = projectile.rotation + MathHelper.ToRadians(projectile.spriteDirection == 1 ? 45 : 135);
             SpriteEffects spriteEffect = projectile.spriteDirection == 1 ? SpriteEffects.None : SpriteEffects.FlipHorizontally;
             spriteBatch.Draw(Main.projectileTexture[projectile.type], position, new Microsoft.Xna.Framework.Rectangle?
                                     (
@@ -239,7 +243,11 @@ namespace LobotomyCorp.Projectiles
                                             0, 0, Main.projectileTexture[projectile.type].Width, Main.projectileTexture[projectile.type].Height
                                         )
                                     ),
-                lightColor * ((float)(255 - projectile.alpha) / 255f), projectile.rotation, origin, projectile.scale, spriteEffect, 0f);
+                lightColor * ((float)(255 - projectile.alpha) / 255f), rotation, origin, projectile.scale, spriteEffect, 0f);
+            /*
+            SlashTrail trail = new SlashTrail(80, 1.57f);
+            trail.DrawTrail(projectile, LobcorpShaders["TwilightSlash"]);*/
+
             return false;
         }
     }

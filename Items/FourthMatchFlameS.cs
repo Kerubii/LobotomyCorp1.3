@@ -7,16 +7,15 @@ namespace LobotomyCorp.Items
 {
 	public class FourthMatchFlameS : SEgoItem
 	{
-		public override void SetStaticDefaults() 
-		{
-			// DisplayName.SetDefault("Penitence"); // By default, capitalization in classnames will add spaces to the display name. You can customize the display name here by uncommenting this line.
-			Tooltip.SetDefault("A Complete E.G.O.\n" +
+        public override void SetStaticDefaults()
+        {
+            // DisplayName.SetDefault("Penitence"); // By default, capitalization in classnames will add spaces to the display name. You can customize the display name here by uncommenting this line.
+            Tooltip.SetDefault("A Complete E.G.O.\n" +
                                "\"I am coming to you. You, who will be reduced to ash like me.\"");
             PassiveText = "Warmth of a Flame - 400% increased damage on fourth use\n" +
-                          "Fourth Match - Alt attack makes you self destruct while on fourth use that deals 4000% increased damage" +
+                          "Fourth Match - Alternate attack makes you explode while on fourth use that deals 4000% increased damage\n" +
                           "Matchstick - Inflicts fire that gets stronger the more it is inflicted" +
-                          "|Scorching Embers - Sets self on fire every fourth use\n" +
-                          "Burning Regret - Has a 0.1% chance to trigger Fourth Match on every fourth use";
+                          "|Scorching Embers - Sets self on fire every fourth use";
 		}
 
 		public override void SetDefaults() 
@@ -64,7 +63,7 @@ namespace LobotomyCorp.Items
 
                 item.useTime = 30;
                 item.useAnimation = 30;
-                item.shoot = mod.ProjectileType("FourthMatchFlameSlash");
+                item.shoot = mod.ProjectileType("FourthMatchFlameGigaSlash");
                 item.noUseGraphic = true;
                 item.noMelee = true;
                 item.autoReuse = true;

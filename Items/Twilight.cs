@@ -95,8 +95,15 @@ namespace LobotomyCorp.Items
 			}
         }
 
-        public override void AddRecipes() 
+		public override void AddRecipes()
 		{
+			ModRecipe recipe = new ModRecipe(mod);
+			recipe.AddIngredient(mod, "Justitia");
+			recipe.AddIngredient(ItemID.SoulofLight, 5);
+			recipe.AddIngredient(ItemID.SoulofNight, 10);
+			recipe.AddIngredient(ItemID.DarkShard);
+			recipe.AddTile(TileID.Anvils);
+			recipe.SetResult(this);
 		}
 	}
 }

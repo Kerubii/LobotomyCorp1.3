@@ -49,7 +49,7 @@ namespace LobotomyCorp.Items
             recipe.AddIngredient(ItemID.ClockworkAssaultRifle);
             recipe.AddIngredient(ItemID.PinkDye, 3);
             recipe.AddIngredient(ItemID.PinkThread, 3);
-            recipe.AddTile(TileID.MythrilAnvil);
+            recipe.AddTile(TileID.Anvils);
             recipe.SetResult(this);
         }
     }

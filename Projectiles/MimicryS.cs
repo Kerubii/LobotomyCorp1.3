@@ -1,4 +1,5 @@
-﻿using Microsoft.Xna.Framework;
+﻿using LobotomyCorp.Utils;
+using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using System;
 using Terraria;
@@ -35,7 +36,7 @@ namespace LobotomyCorp.Projectiles
 			Player projOwner = Main.player[projectile.owner];
 			Vector2 ownerMountedCenter = projOwner.RotatedRelativePoint(projOwner.MountedCenter, true);
 			projectile.direction = projOwner.direction;
-			projOwner.heldProj = projectile.whoAmI;
+			//projOwner.heldProj = projectile.whoAmI;
 			projOwner.itemTime = projOwner.itemAnimation;
 
             float rot = projectile.velocity.ToRotation();
@@ -137,6 +138,8 @@ namespace LobotomyCorp.Projectiles
             }
         }
 
+        public Vector2[] trailPos = new Vector2[6];
+
         public override bool PreDraw(SpriteBatch spriteBatch, Color lightColor)
         {
             Vector2 position = projectile.Center - Main.screenPosition;
@@ -145,9 +148,10 @@ namespace LobotomyCorp.Projectiles
             Vector2 origin = new Vector2(56 + (projectile.direction == 1 ? 0 : 35), 60) + originOffset;
             SpriteEffects spriteEffect = projectile.direction == 1 ? SpriteEffects.None : SpriteEffects.FlipHorizontally;
             if (Main.player[projectile.owner].itemAnimation <= 19)
-                for (int i = 0; i < 10; i++)
+            {
+                /*for (int i = 0; i < 10; i++)
                 {
-                    position = projectile.oldPos[i] + projectile.Size/2 - Main.screenPosition - new Vector2(projectile.direction == 1 ? 8 : 16, 10) + new Vector2(10, 0).RotatedBy(projectile.rotation);
+                    position = projectile.oldPos[i] + projectile.Size / 2 - Main.screenPosition - new Vector2(projectile.direction == 1 ? 8 : 16, 10) + new Vector2(10, 0).RotatedBy(projectile.rotation);
                     Texture2D tex = mod.GetTexture("Projectiles/MimicrySBlur");
                     Color color = lightColor;
                     //color.A = (byte)(color.A * 0.15f);
@@ -161,7 +165,22 @@ namespace LobotomyCorp.Projectiles
                                             )
                                         ),
                     color, projectile.oldRot[i], origin, projectile.scale, spriteEffect, 0f);
+                }*/
+                SlashTrail trail = new SlashTrail(24, 0.785f - MathHelper.ToRadians(projectile.direction == 1 ? 0 : 90));
+                Vector2[] trailPos = new Vector2[projectile.oldPos.Length];
+                for (int i = 0; i < trailPos.Length; i++)
+                {
+                    if (projectile.oldPos[i].Length() > 0)
+                        trailPos[i] = projectile.position + new Vector2(44 + projectile.ai[0], 0).RotatedBy(projectile.oldRot[i] - 0.785f - MathHelper.ToRadians(projectile.direction == 1 ? 0 : 90));
                 }
+
+                Player projOwner = Main.player[projectile.owner];
+                float prog = 1f - (float) projOwner.itemAnimation / 19f;
+                CustomShaderData mimicry = LobotomyCorp.LobcorpShaders["MimicrySlash"].UseOpacity(prog);
+
+                trail.DrawSpecific(trailPos, projectile.oldRot, Vector2.Zero, mimicry);
+            }                     
+
             position = projectile.Center - Main.screenPosition - new Vector2(projectile.direction == 1 ? 8 : 16, 10) + new Vector2(10, 0).RotatedBy(projectile.rotation);
             spriteBatch.Draw(Main.projectileTexture[projectile.type], position, new Microsoft.Xna.Framework.Rectangle?
                                     (
