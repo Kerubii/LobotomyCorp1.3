@@ -25,7 +25,11 @@ namespace LobotomyCorp
         public static Texture2D ArcanaSlaveLaser = null;
         public static Texture2D ArcanaSlaveBackground = null;
 
+        public static Texture2D FeatherOfHonorFeather = null;
+
         public static Texture2D MagicBulletBullet = null;
+
+        public static Texture2D SmileShockwave = null;
 
         public static Texture2D RedShield = null;
         public static Texture2D WhiteShield = null;
@@ -70,8 +74,14 @@ namespace LobotomyCorp
                 ArcanaSlaveBackground = GetTexture("Projectiles/QueenLaser/CircleBackground");
                 PremultiplyTexture(ArcanaSlaveBackground);
 
+                ArcanaSlaveLaser = GetTexture("Projectiles/FeatherOfHonor");
+                PremultiplyTexture(ArcanaSlaveLaser);
+
                 MagicBulletBullet = GetTexture("Projectiles/MagicBulletBullet");
                 PremultiplyTexture(MagicBulletBullet);
+
+                SmileShockwave = GetTexture("Projectiles/SmileShockwave");
+                PremultiplyTexture(SmileShockwave);
 
                 RedShield = GetTexture("Misc/BulletShield/RedShield");
                 PremultiplyTexture(RedShield);
@@ -122,6 +132,8 @@ namespace LobotomyCorp
             ArcanaSlaveBackground = null;
 
             MagicBulletBullet = null;
+
+            SmileShockwave = null;
 
             RedShield = null;
             WhiteShield = null;

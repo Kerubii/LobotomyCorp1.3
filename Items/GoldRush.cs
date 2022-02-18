@@ -29,7 +29,7 @@ namespace LobotomyCorp.Items
 			item.useStyle = ItemUseStyleID.HoldingOut;
 			item.knockBack = 2;
 			item.value = 10000;
-			item.rare = ItemRarityID.Yellow;
+			item.rare = ItemRarityID.Red;
             item.shootSpeed = 11f;
             item.shoot = mod.ProjectileType("GoldRushPunches");
 

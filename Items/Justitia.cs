@@ -26,7 +26,7 @@ namespace LobotomyCorp.Items
 			item.useStyle = 5;
 			item.knockBack = 6;
 			item.value = 10000;
-			item.rare = 2;
+			item.rare = ItemRarityID.Red;
 			item.UseSound = SoundID.Item1;
 			item.autoReuse = true;
 			item.shootSpeed = 1f;

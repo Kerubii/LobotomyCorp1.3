@@ -39,7 +39,7 @@ namespace LobotomyCorp.Projectiles
             Player projOwner = Main.player[projectile.owner];
             Vector2 ownerMountedCenter = projOwner.RotatedRelativePoint(projOwner.MountedCenter, true);
             projectile.spriteDirection = Math.Sign(projectile.velocity.X);
-            //projOwner.heldProj = projectile.whoAmI;
+            projOwner.heldProj = projectile.whoAmI;
             projOwner.itemTime = projOwner.itemAnimation;
 
             /*if (projectile.ai[1] == 0)
