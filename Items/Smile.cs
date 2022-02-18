@@ -1,3 +1,4 @@
+using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
 
@@ -19,17 +20,48 @@ namespace LobotomyCorp.Items
 			item.melee = true;
 			item.width = 40;
 			item.height = 40;
+
 			item.useTime = 24;
             item.useAnimation = 24;
 			item.useStyle = 1;
+
 			item.knockBack = 6;
 			item.value = 10000;
-			item.rare = 2;
+			item.rare = ItemRarityID.Red;
+
 			item.UseSound = SoundID.Item1;
-			item.autoReuse = true;
+			item.autoReuse = false;
+			item.shootSpeed = 1f;
+			item.noUseGraphic = false;
+			item.noMelee = false;
 		}
 
-		public override void AddRecipes() 
+        public override bool AltFunctionUse(Player player)
+        {
+			return true;
+        }
+
+        public override bool SafeCanUseItem(Player player)
+        {
+			if (player.altFunctionUse == 2)
+			{
+				item.useStyle = ItemUseStyleID.HoldingOut;
+				item.shoot = mod.ProjectileType("SmileSpecial");
+				item.noUseGraphic = true;
+				item.noMelee = true;
+			}
+			else
+			{
+				item.useStyle = ItemUseStyleID.SwingThrow;
+				item.shoot = 0;
+				item.noUseGraphic = false;
+				item.noMelee = false;
+			}
+
+			return base.SafeCanUseItem(player);
+        }
+
+        public override void AddRecipes() 
 		{
             ModRecipe recipe = new ModRecipe(mod);
             recipe.AddIngredient(ItemID.Pwnhammer);

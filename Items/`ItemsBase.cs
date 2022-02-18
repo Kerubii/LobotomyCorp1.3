@@ -104,25 +104,28 @@ namespace LobotomyCorp.Items
 
         public override void UseStyle(Player player)
         {
-            float anim = player.itemAnimationMax;
-            int helper = LobotomyModPlayer.ModPlayer(player).HeavyWeaponHelper;
-            if (helper <= 2)
+            if (player.altFunctionUse != 2)
             {
-                player.itemAnimation = helper;
-                return;
+                float anim = player.itemAnimationMax;
+                int helper = LobotomyModPlayer.ModPlayer(player).HeavyWeaponHelper;
+                if (helper <= 2)
+                {
+                    player.itemAnimation = helper;
+                    return;
+                }
+                if (helper > anim)
+                {
+                    player.itemAnimation = (int)(player.itemAnimationMax * ((0.5f * Math.Cos((float)Math.PI * (((float)helper - anim) / (anim * 2))) + 0.5f) / 1f));
+                }
+                else
+                {
+                    player.itemAnimation = (int)(player.itemAnimationMax * ((float)helper / anim));
+                }
+                if (player.itemAnimation <= 2)
+                    player.itemAnimation = 3;
+                if (helper < player.itemAnimationMax * 3)
+                    item.noUseGraphic = false;
             }
-            if (helper > anim)
-            {
-                player.itemAnimation = (int)(player.itemAnimationMax * ((0.5f * Math.Cos( (float) Math.PI * (((float)helper - anim) / (anim * 2))) + 0.5f) / 1f ));
-            }
-            else
-            {
-                player.itemAnimation = (int)(player.itemAnimationMax * ((float)helper / anim));
-            }
-            if (player.itemAnimation <= 2)
-                player.itemAnimation = 3;
-            if (helper < player.itemAnimationMax * 3)
-                item.noUseGraphic = false;
         }
         
         public override bool? CanHitNPC(Player player, NPC target)

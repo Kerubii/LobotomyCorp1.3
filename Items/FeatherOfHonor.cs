@@ -15,6 +15,8 @@ namespace LobotomyCorp.Items
 
         }
 
+        public int FeatherShoot = 0;
+
 		public override void SetDefaults() 
 		{
 			item.damage = 24;
@@ -29,16 +31,24 @@ namespace LobotomyCorp.Items
 			item.knockBack = 2.4f;
 			item.value = 10000;
 			item.rare = 1;
-			item.UseSound = SoundID.Item1;
+			//item.UseSound = SoundID.Item1;
 			item.autoReuse = true;
             item.shoot = mod.ProjectileType("FeatherOfHonor");
             item.shootSpeed = 1f;
             item.noUseGraphic = true;
+            item.channel = true;
+            FeatherShoot = 0;
 		}
+
+        public override void HoldItem(Player player)
+        {
+            if (FeatherShoot > 0)
+                FeatherShoot--;
+        }
 
         public override bool Shoot(Player player, ref Vector2 position, ref float speedX, ref float speedY, ref int type, ref int damage, ref float knockBack)
         {
-            damage = (int)(damage * 0.25f);
+            /*damage = (int)(damage * 0.25f);
             for (int i = -2; i < 3; i++)
             {
                 float rot = MathHelper.ToRadians(270 + 25 * i);
@@ -52,6 +62,16 @@ namespace LobotomyCorp.Items
                     case  2: delay += 20; break;
                 }
                 Projectile.NewProjectile(position, vel, type, damage, knockBack, player.whoAmI, delay);
+            }*/
+
+            for (int i = 0; i < 5; i++)
+            {
+                int order = i;
+                if (i >= 2)
+                    order++;
+                if (i == 4)
+                    order = 2;
+                Projectile.NewProjectile(position, Vector2.Zero, type, damage, knockBack, player.whoAmI, order);
             }
 
             return false;
@@ -60,10 +80,10 @@ namespace LobotomyCorp.Items
         public override void AddRecipes() 
 		{
             ModRecipe recipe = new ModRecipe(mod);
-            recipe.AddIngredient(ItemID.Acorn, 3);
-            recipe.AddIngredient(ItemID.DynastyWood, 20);
-            recipe.AddIngredient(ItemID.SharkToothNecklace);
-            recipe.AddTile(TileID.Anvils);
+            recipe.AddIngredient(ItemID.Feather, 5);
+            recipe.AddIngredient(ItemID.InfernoPotion, 2);
+            recipe.AddIngredient(ItemID.Fireblossom, 10);
+            recipe.AddTile(TileID.ImbuingStation);
             recipe.SetResult(this);
         }
 	}
