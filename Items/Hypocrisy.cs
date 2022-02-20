@@ -13,7 +13,7 @@ namespace LobotomyCorp.Items
         }
 
 		public override void SetDefaults() {
-			item.damage = 6;
+			item.damage = 24;
 			item.ranged = true;
 			item.width = 40;
 			item.height = 20;
@@ -23,8 +23,8 @@ namespace LobotomyCorp.Items
 			item.noMelee = true;
 			item.knockBack = 4;
 			item.value = 10000;
-			item.rare = ItemRarityID.Green;
-			item.UseSound = SoundID.Item11;
+			item.rare = ItemRarityID.Purple;
+			item.UseSound = SoundID.Item5;
 			item.autoReuse = true;
 			item.shoot = 10;
 			item.shootSpeed = 10f;
@@ -36,5 +36,9 @@ namespace LobotomyCorp.Items
         {
             return new Vector2(-2, 0);
         }
-    }
+
+		public override void AddRecipes()
+		{
+		}
+	}
 }

@@ -81,9 +81,16 @@ namespace LobotomyCorp.Projectiles
 			if (projectile.spriteDirection == -1) {
 				projectile.rotation -= MathHelper.ToRadians(90f);
 			}
+
+			Dust dust;
+			// You need to set position depending on what you are doing. You may need to subtract width/2 and height/2 as well to center the spawn rectangle.
+			Vector2 position = projectile.Center;
+			dust = Terraria.Dust.NewDustPerfect(position, 172, new Vector2(0f, 0f), 0, new Color(255, 255, 255), 1.5f);
+			dust.noGravity = true;
+			dust.fadeIn = 1.6f;
 		}
 
-        public override bool PreDraw(SpriteBatch spriteBatch, Color lightColor)
+		public override bool PreDraw(SpriteBatch spriteBatch, Color lightColor)
         {
             Vector2 position = projectile.Center - Main.screenPosition;
             spriteBatch.Draw(Main.projectileTexture[projectile.type], position, new Microsoft.Xna.Framework.Rectangle?
@@ -94,7 +101,7 @@ namespace LobotomyCorp.Projectiles
                                         )
                                     ),
                 lightColor * ((float)(255 - projectile.alpha) / 255f), projectile.rotation, Vector2.Zero, projectile.scale, SpriteEffects.None, 0f);
-            for (int i = 0; i < 4; i++)
+            /*for (int i = 0; i < 4; i++)
             {
                 Texture2D texture = mod.GetTexture("Projectiles/SwordSharpenedWithTearsGlow");
                 position = projectile.oldPos[i] + projectile.Size/2 - Main.screenPosition;
@@ -110,7 +117,7 @@ namespace LobotomyCorp.Projectiles
                                         )
                                     ),
                 color, projectile.rotation, Vector2.Zero, projectile.scale, SpriteEffects.None, 0f);
-            }
+            }*/
             return false;
         }
     }

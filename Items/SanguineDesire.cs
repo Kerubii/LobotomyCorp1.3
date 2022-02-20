@@ -23,7 +23,7 @@ namespace LobotomyCorp.Items
 			item.useStyle = 1;
 			item.knockBack = 6;
 			item.value = 10000;
-			item.rare = 2;
+			item.rare = ItemRarityID.Yellow;
 			item.UseSound = SoundID.Item1;
 			item.autoReuse = true;
             item.scale = 0.7f;
@@ -31,6 +31,19 @@ namespace LobotomyCorp.Items
 
 		public override void AddRecipes() 
 		{
+			ModRecipe recipe = new ModRecipe(mod);
+			recipe.AddIngredient(ItemID.BloodLustCluster);
+			recipe.AddIngredient(ItemID.HellstoneBar, 5);
+			recipe.AddTile(mod, "BlackBox2");
+			recipe.SetResult(this);
+			recipe.AddRecipe();
+
+			recipe = new ModRecipe(mod);
+			recipe.AddIngredient(ItemID.WarAxeoftheNight);
+			recipe.AddIngredient(ItemID.HellstoneBar, 5);
+			recipe.AddTile(mod, "BlackBox2");
+			recipe.SetResult(this);
+			recipe.AddRecipe();
 		}
 	}
 }

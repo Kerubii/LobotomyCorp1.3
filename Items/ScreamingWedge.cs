@@ -24,7 +24,7 @@ namespace LobotomyCorp.Items
 			item.knockBack = 4;
 			item.value = 10000;
 			item.rare = ItemRarityID.Yellow;
-			item.UseSound = SoundID.Item11;
+			item.UseSound = SoundID.Item5;
 			item.autoReuse = true;
 			item.shoot = 10;
 			item.shootSpeed = 10f;
@@ -55,6 +55,7 @@ namespace LobotomyCorp.Items
             recipe.AddIngredient(ItemID.EbonstoneBlock, 10);
             recipe.AddTile(TileID.Anvils);
             recipe.SetResult(this);
+            recipe.AddRecipe();
 
             recipe = new ModRecipe(mod);
             recipe.AddIngredient(ItemID.Shadewood, 30);
@@ -62,6 +63,7 @@ namespace LobotomyCorp.Items
             recipe.AddIngredient(ItemID.CrimstoneBlock, 10);
             recipe.AddTile(TileID.Anvils);
             recipe.SetResult(this);
+            recipe.AddRecipe();
         }
     }
 }

@@ -28,7 +28,7 @@ namespace LobotomyCorp.Items
 			item.knockBack = 6;
 			item.value = 10000;
 			item.channel = true;
-			item.rare = 2;
+			item.rare = ItemRarityID.Red;
 			//item.UseSound = SoundID.Item1;
 		}
 
@@ -81,10 +81,10 @@ namespace LobotomyCorp.Items
             recipe.AddIngredient(ItemID.BreakerBlade);
             recipe.AddIngredient(ItemID.SoulofNight, 8);
             recipe.AddIngredient(ItemID.Vertebrae, 5);
-            recipe.AddIngredient(ItemID.Bottle);
-            recipe.AddTile(TileID.MythrilAnvil);
+            recipe.AddTile(mod, "BlackBox3");
             recipe.SetResult(this);
-        }
+			recipe.AddRecipe();
+		}
 
         public override void MeleeEffects(Player player, Rectangle hitbox)
         {

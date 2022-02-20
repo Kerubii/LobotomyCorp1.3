@@ -22,14 +22,27 @@ namespace LobotomyCorp.Items
 			item.useAnimation = 20;
 			item.useStyle = 1;
 			item.knockBack = 6;
-			item.value = 10000;
-			item.rare = 2;
+			item.value = 5000;
+			item.rare = ItemRarityID.Purple;
 			item.UseSound = SoundID.Item1;
 			item.autoReuse = true;
 		}
 
 		public override void AddRecipes() 
 		{
+			ModRecipe recipe = new ModRecipe(mod);
+			recipe.AddIngredient(ItemID.TheBreaker);
+			recipe.AddIngredient(ItemID.InvisibilityPotion, 4);
+			recipe.AddTile(mod, "BlackBox3");
+			recipe.SetResult(this);
+			recipe.AddRecipe();
+
+			recipe = new ModRecipe(mod);
+			recipe.AddIngredient(ItemID.FleshGrinder);
+			recipe.AddIngredient(ItemID.InvisibilityPotion, 4);
+			recipe.AddTile(mod, "BlackBox3");
+			recipe.SetResult(this);
+			recipe.AddRecipe();
 		}
 	}
 }

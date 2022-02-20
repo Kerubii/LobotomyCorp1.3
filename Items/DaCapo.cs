@@ -24,7 +24,7 @@ namespace LobotomyCorp.Items
 			item.useStyle = 1;
 			item.knockBack = 6;
 			item.value = 10000;
-			item.rare = 2;
+			item.rare = ItemRarityID.Red;
 			item.UseSound = SoundID.Item1;
 			item.autoReuse = true;
             item.shootSpeed = 1f;
@@ -65,8 +65,9 @@ namespace LobotomyCorp.Items
             recipe.AddIngredient(ItemID.DarkShard);
             recipe.AddIngredient(ItemID.LightShard);
             recipe.AddIngredient(ItemID.MusicBox);
-            recipe.AddTile(TileID.MythrilAnvil);
+            recipe.AddTile(mod, "BlackBox3");
             recipe.SetResult(this);
+            recipe.AddRecipe();
         }
 	}
 }

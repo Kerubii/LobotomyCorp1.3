@@ -62,6 +62,12 @@ namespace LobotomyCorp.Items
             return base.Shoot(player, ref position, ref speedX, ref speedY, ref type, ref damage, ref knockBack);
         }
 
+        public override void ModifyWeaponDamage(Player player, ref float add, ref float mult)
+        {
+			if (player.blind)
+				add += 0.2f;
+        }
+
         public override void ModifyHitNPC(Player player, NPC target, ref int damage, ref float knockBack, ref bool crit)
         {
 			target.immune[player.whoAmI] = 3;
@@ -69,6 +75,14 @@ namespace LobotomyCorp.Items
 
         public override void AddRecipes() 
 		{
+			ModRecipe recipe = new ModRecipe(mod);
+			recipe.AddIngredient(ItemID.LightsBane);
+			recipe.AddIngredient(ItemID.Feather, 15);
+			recipe.AddIngredient(ItemID.Bone, 10);
+			recipe.AddIngredient(ItemID.Silk, 20);
+			recipe.AddTile(mod, "BlackBox3");
+			recipe.SetResult(this);
+			recipe.AddRecipe();
 		}
 	}
 }

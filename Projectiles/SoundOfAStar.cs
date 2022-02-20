@@ -42,9 +42,12 @@ namespace LobotomyCorp.Projectiles
             {
                 if (Main.myPlayer == projectile.owner)
                 {
-                    Vector2 targetPos = Main.MouseWorld + new Vector2(Main.rand.Next(32), Main.rand.Next(32));
-                    Projectile.NewProjectile(targetPos, Vector2.Zero, mod.ProjectileType("SoundOfAStarShoot"), projectile.damage, projectile.knockBack, projectile.owner);
-                    projectile.velocity = Vector2.Normalize(targetPos - projectile.Center) * -4f;
+                    Vector2 targetPos = Main.MouseWorld;// + new Vector2(Main.rand.Next(32), Main.rand.Next(32));
+                    Vector2 vel = Vector2.Normalize(targetPos - projectile.Center);
+                    Projectile.NewProjectile(projectile.Center, vel * 4, mod.ProjectileType("SoundOfAStarShoot"), projectile.damage, projectile.knockBack, projectile.owner);
+                    projectile.velocity = vel * -4f;
+
+                    Main.PlaySound(SoundID.Item72, projectile.Center);
                 }
                 for (int i = 0; i < 8; i++)
                 {
@@ -102,30 +105,34 @@ namespace LobotomyCorp.Projectiles
 
         public override void SetDefaults()
         {
-            projectile.width = 48;
-            projectile.height = 48;
+            projectile.width = 24;
+            projectile.height = 24;
             projectile.aiStyle = -1;
-            projectile.penetrate = -1;
+            projectile.penetrate = 1;
             projectile.scale = 1f;
-            projectile.timeLeft = 5;
+            projectile.timeLeft = 600;
             projectile.alpha = 255;
+            projectile.tileCollide = true;
 
-            projectile.usesLocalNPCImmunity = true;
-            projectile.localNPCHitCooldown = 5;
+            //projectile.usesLocalNPCImmunity = true;
+            //projectile.localNPCHitCooldown = 5;
 
+            projectile.extraUpdates = 50;
             projectile.minion = true;
             projectile.friendly = true;
         }
 
         public override void AI()
         {
-            if (projectile.ai[0]++ == 0)
+            Dust.NewDustPerfect(projectile.Center, 91).noGravity = true;
+        }
+
+        public override void Kill(int timeLeft)
+        {
+            for (int i = 0; i < 180; i++)
             {
-                for (int i = 0; i < 180; i++)
-                {
-                    Vector2 speed = new Vector2(4, 0).RotatedBy(MathHelper.ToRadians(i * 2));
-                    Dust.NewDustPerfect(projectile.Center, 91, speed).noGravity = true;
-                }
+                Vector2 speed = new Vector2(4, 0).RotatedBy(MathHelper.ToRadians(i * 2));
+                Dust.NewDustPerfect(projectile.Center, 91, speed).noGravity = true;
             }
         }
     }

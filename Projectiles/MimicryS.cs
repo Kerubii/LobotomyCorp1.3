@@ -13,7 +13,7 @@ namespace LobotomyCorp.Projectiles
 		public override void SetStaticDefaults() {
             //DisplayName.SetDefault("Spear");
             ProjectileID.Sets.TrailingMode[projectile.type] = 2;
-            ProjectileID.Sets.TrailCacheLength[projectile.type] = 10;
+            ProjectileID.Sets.TrailCacheLength[projectile.type] = 8;
         }
 
 		public override void SetDefaults() {
@@ -74,7 +74,7 @@ namespace LobotomyCorp.Projectiles
                 rot -= MathHelper.ToRadians(peak);
                 for (int i = 0; i < 6; i++)
                 {
-                    projectile.oldRot[i] = rot + MathHelper.ToRadians(projectile.direction == 1 ? 45 : 135);
+                    projectile.oldRot[i] = -1000;//rot + MathHelper.ToRadians(projectile.direction == 1 ? 45 : 135);
                 }
             }
 
@@ -172,6 +172,8 @@ namespace LobotomyCorp.Projectiles
                 {
                     if (projectile.oldPos[i].Length() > 0)
                         trailPos[i] = projectile.position + new Vector2(44 + projectile.ai[0], 0).RotatedBy(projectile.oldRot[i] - 0.785f - MathHelper.ToRadians(projectile.direction == 1 ? 0 : 90));
+                    if (projectile.oldRot[i] <= -1000)
+                        trailPos[i] = Vector2.Zero;
                 }
 
                 Player projOwner = Main.player[projectile.owner];

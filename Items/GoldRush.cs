@@ -73,8 +73,16 @@ namespace LobotomyCorp.Items
             return base.Shoot(player, ref position, ref speedX, ref speedY, ref type, ref damage, ref knockBack);
         }
 
-        public override void AddRecipes() 
+		public override void AddRecipes()
 		{
+			ModRecipe recipe = new ModRecipe(mod);
+			recipe.AddIngredient(ItemID.FeralClaws);
+			recipe.AddIngredient(ItemID.Amber);
+			recipe.AddIngredient(ItemID.GoldBar, 20);
+			recipe.AddIngredient(ItemID.FallenStar, 8);			
+			recipe.AddTile(mod, "BlackBox3");
+			recipe.SetResult(this);
+			recipe.AddRecipe();
 		}
 	}
 }

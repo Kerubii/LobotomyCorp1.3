@@ -24,7 +24,7 @@ namespace LobotomyCorp.Items
             item.useStyle = 1;
             item.knockBack = 6;
             item.value = 10000;
-            item.rare = 3;
+            item.rare = ItemRarityID.Blue;
             item.UseSound = SoundID.Item1;
             item.autoReuse = true;
         }
@@ -44,8 +44,9 @@ namespace LobotomyCorp.Items
             ModRecipe recipe = new ModRecipe(mod);
             recipe.AddIngredient(ItemID.Cobweb, 100);
             recipe.AddIngredient(ItemID.Ruby, 8);
-            recipe.AddTile(TileID.Anvils);
+            recipe.AddTile(mod, "BlackBox");
             recipe.SetResult(this);
+            recipe.AddRecipe();
         }
     }
 }

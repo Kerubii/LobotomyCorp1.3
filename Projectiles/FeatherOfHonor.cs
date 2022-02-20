@@ -46,8 +46,8 @@ namespace LobotomyCorp.Projectiles
                     projectile.Center = ownerMountedCenter + new Vector2(52, 0).RotatedBy(MathHelper.ToRadians(-30 - 30 * projectile.ai[0]));
                     projectile.timeLeft = 20;
                     projectile.spriteDirection = projOwner.direction;
-                    projOwner.itemTime = 2;
-                    projOwner.itemAnimation = 2;
+                    projOwner.itemTime = 24;
+                    projOwner.itemAnimation = 24;
 
                     if (Main.rand.Next(3) == 0)
                     {

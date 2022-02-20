@@ -19,6 +19,7 @@ namespace LobotomyCorp.Items
             item.useAnimation = 12;
             item.useTime = 12;
             item.autoReuse = true;
+            item.rare = ItemRarityID.Blue;
 		}
         /*
         public override void OnHitNPC(Player player, NPC target, int damage, float knockBack, bool crit)
@@ -39,8 +40,9 @@ namespace LobotomyCorp.Items
             recipe.AddIngredient(ItemID.Silk, 30);
             recipe.AddIngredient(ItemID.Cobweb, 20);
             recipe.AddIngredient(ItemID.BrownDye, 3);
-            recipe.AddTile(TileID.Anvils);
+            recipe.AddTile(mod, "BlackBox");
             recipe.SetResult(this);
+            recipe.AddRecipe();
         }
 	}
 }

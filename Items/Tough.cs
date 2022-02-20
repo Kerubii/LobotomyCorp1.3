@@ -9,7 +9,7 @@ namespace LobotomyCorp.Items
 	{
 		public override void SetStaticDefaults() {
 			Tooltip.SetDefault("A glock reminiscent of a certain detective who fought evil for 25 years, losing hair as time went by.\n" +
-                               "Only those who maintain a clean ÅghairstyleÅh with no impurities on their head will be deemed worthy of equipping this weapon.");
+                               "Only those who maintain a clean \'hairstyle\' with no impurities on their head will be deemed worthy of equipping this weapon.");
         }
 
 		public override void SetDefaults() {
@@ -23,7 +23,7 @@ namespace LobotomyCorp.Items
 			item.noMelee = true;
 			item.knockBack = 4;
 			item.value = 10000;
-			item.rare = ItemRarityID.Green;
+			item.rare = ItemRarityID.Blue;
 			item.UseSound = SoundID.Item11;
 			item.autoReuse = true;
 			item.shoot = 10;
@@ -34,7 +34,7 @@ namespace LobotomyCorp.Items
 
         public override bool CanUseItem(Player player)
         {
-            return player.hair == 14 || player.hair == 75;
+            return player.hair == 15 || player.hair == 76;
         }
 
         public override Vector2? HoldoutOffset()
@@ -49,8 +49,9 @@ namespace LobotomyCorp.Items
             recipe.AddIngredient(ItemID.Glass, 5);
             recipe.AddIngredient(ItemID.StoneSlab, 10);
             recipe.AddIngredient(ItemID.Lens, 20);
-            recipe.AddTile(TileID.Anvils);
+            recipe.AddTile(mod, "BlackBox");
             recipe.SetResult(this);
+            recipe.AddRecipe();
         }
     }
 }

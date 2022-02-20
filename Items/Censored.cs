@@ -29,8 +29,8 @@ namespace LobotomyCorp.Items
 			item.useStyle = 5;
 
 			item.value = 10000;
-			item.rare = 2;
-			item.UseSound = SoundID.Item1;
+			item.rare = ItemRarityID.Red;
+			item.UseSound = SoundID.NPCHit18;
 			item.autoReuse = true;
 			item.noMelee = true;
 			item.noUseGraphic = true;

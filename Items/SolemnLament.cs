@@ -11,7 +11,8 @@ namespace LobotomyCorp.Items
         public override void SetStaticDefaults()
         {
             Tooltip.SetDefault("The somber design is a reminder that not a sliver of frivolity is allowed for the minds of those who mourn.\n" +
-                               "One handgun symbolizes grief for the dead, while the other symbolizes early lament for the living.");
+                               "One handgun symbolizes grief for the dead, while the other symbolizes early lament for the living.\n" +
+                               "Switches between range and magic depending on the gun used");
         }
 
         public override void SetDefaults() {
@@ -86,6 +87,14 @@ namespace LobotomyCorp.Items
         }
 
         public override void AddRecipes() {
-		}
+            ModRecipe recipe = new ModRecipe(mod);
+            recipe.AddIngredient(ItemID.IllegalGunParts);
+            recipe.AddIngredient(ItemID.SilverDye, 3);
+            recipe.AddIngredient(ItemID.BlackDye, 3);
+            recipe.AddRecipeGroup("LobotomyCorp:Butterflies", 5);
+            recipe.AddTile(mod, "BlackBox2");
+            recipe.SetResult(this);
+            recipe.AddRecipe();
+        }
 	}
 }

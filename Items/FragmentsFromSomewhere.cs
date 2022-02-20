@@ -29,7 +29,7 @@ namespace LobotomyCorp.Items
 			item.useStyle = ItemUseStyleID.HoldingOut;
 			item.knockBack = 6;
 			item.value = 10000;
-			item.rare = 1;
+            item.rare = ItemRarityID.Blue;
             item.shootSpeed = 3.7f;
             item.shoot = mod.ProjectileType("FragmentsFromSomewhere");
 
@@ -60,8 +60,9 @@ namespace LobotomyCorp.Items
             recipe.AddIngredient(ItemID.Ruby);
             recipe.AddIngredient(ItemID.Sapphire);
             recipe.AddIngredient(ItemID.Diamond);
-            recipe.AddTile(TileID.Anvils);
+            recipe.AddTile(mod, "BlackBox");
             recipe.SetResult(this);
+            recipe.AddRecipe();
         }
 	}
 }

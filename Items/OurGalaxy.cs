@@ -24,7 +24,7 @@ namespace LobotomyCorp.Items
 			item.useStyle = 1;
 			item.knockBack = 6;
 			item.value = 10000;
-			item.rare = 3;
+			item.rare = ItemRarityID.Yellow;
             item.shoot = mod.ProjectileType("OurGalaxySparkle");
             item.shootSpeed = 10f;
 			item.UseSound = SoundID.Item1;
@@ -37,8 +37,9 @@ namespace LobotomyCorp.Items
             recipe.AddIngredient(ItemID.Star, 10);
             recipe.AddIngredient(ItemID.Glass, 5);
             recipe.AddIngredient(ItemID.MeteoriteBar, 8);
-            recipe.AddTile(TileID.Anvils);
+            recipe.AddTile(mod, "BlackBox2");
             recipe.SetResult(this);
-        }
+			recipe.AddRecipe();
+		}
 	}
 }

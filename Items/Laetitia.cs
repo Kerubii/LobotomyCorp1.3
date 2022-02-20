@@ -44,6 +44,7 @@ namespace LobotomyCorp.Items
             recipe.AddIngredient(ItemID.CrimtaneBar, 5);
             recipe.AddTile(TileID.Anvils);
             recipe.SetResult(this);
-        }
+			recipe.AddRecipe();
+		}
     }
 }

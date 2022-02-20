@@ -28,7 +28,7 @@ namespace LobotomyCorp.Items
 			item.useStyle = ItemUseStyleID.HoldingOut;
 			item.knockBack = 6;
 			item.value = 10000;
-			item.rare = ItemRarityID.Yellow;
+			item.rare = ItemRarityID.Purple;
             item.shootSpeed = 4.7f;
             item.shoot = mod.ProjectileType("Spore");
 
@@ -46,6 +46,12 @@ namespace LobotomyCorp.Items
 
         public override void AddRecipes() 
 		{
+			ModRecipe recipe = new ModRecipe(mod);
+			recipe.AddIngredient(ItemID.GlowingMushroom, 75);
+			recipe.AddIngredient(ItemID.JungleSpores, 4);
+			recipe.AddTile(mod, "BlackBox2");
+			recipe.SetResult(this);
+			recipe.AddRecipe();
 		}
 	}
 }

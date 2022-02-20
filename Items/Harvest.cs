@@ -46,6 +46,12 @@ namespace LobotomyCorp.Items
 
         public override void AddRecipes() 
 		{
+			ModRecipe recipe = new ModRecipe(mod);
+			recipe.AddIngredient(ItemID.Sickle);
+			recipe.AddIngredient(ItemID.Hay, 100);
+			recipe.AddTile(mod, "BlackBox2");
+			recipe.SetResult(this);
+			recipe.AddRecipe();
 		}
 	}
 }

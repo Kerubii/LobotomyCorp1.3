@@ -44,8 +44,9 @@ namespace LobotomyCorp.Items
             recipe.AddIngredient(ItemID.LesserHealingPotion);
             recipe.AddIngredient(ItemID.LesserManaPotion);
             recipe.AddIngredient(ItemID.BottledHoney);
-            recipe.AddTile(TileID.Anvils);
+            recipe.AddTile(mod, "BlackBox");
             recipe.SetResult(this);
-        }
+			recipe.AddRecipe();
+		}
     }
 }

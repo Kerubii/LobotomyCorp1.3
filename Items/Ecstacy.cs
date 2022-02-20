@@ -27,7 +27,7 @@ namespace LobotomyCorp.Items
             item.noMelee = true;
 			item.knockBack = 2.4f;
 			item.value = 10000;
-			item.rare = 2;
+			item.rare = ItemRarityID.Purple;
 			item.UseSound = SoundID.Item85;
 			item.autoReuse = true;
             item.shoot = mod.ProjectileType("Candy");
@@ -47,6 +47,13 @@ namespace LobotomyCorp.Items
 
         public override void AddRecipes() 
 		{
+			ModRecipe recipe = new ModRecipe(mod);
+			recipe.AddIngredient(ItemID.WaterGun);
+			recipe.AddIngredient(ItemID.Bubble, 30);
+			recipe.AddIngredient(ItemID.SharkFin);
+			recipe.AddTile(mod, "BlackBox3");
+			recipe.SetResult(this);
+			recipe.AddRecipe();
 		}
 	}
 }

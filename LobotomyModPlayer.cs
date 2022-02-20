@@ -144,6 +144,19 @@ namespace LobotomyCorp
             FaintAromaPetal = 0;
         }
 
+        public override void SetupStartInventory(IList<Item> items, bool mediumcoreDeath)
+        {
+            if (!mediumcoreDeath)
+            {
+                Item item = new Item();
+                item.SetDefaults(mod.ItemType("BlackBox"));
+                items.Add(item);
+                item = new Item();
+                item.SetDefaults(mod.ItemType("Penitence"));
+                items.Add(item);
+            }
+        }
+
         public override void PreUpdate()
         {
             if (BeakParry > 0)

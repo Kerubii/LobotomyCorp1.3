@@ -20,7 +20,9 @@ namespace LobotomyCorp.Items
             item.useAnimation = 12;
             item.useTime = 12;
             item.autoReuse = true;
-		}
+            item.rare = ItemRarityID.Blue;
+
+        }
         /*
         public override void OnHitNPC(Player player, NPC target, int damage, float knockBack, bool crit)
         {
@@ -36,9 +38,10 @@ namespace LobotomyCorp.Items
         */
         public override void AddRecipes() {
             ModRecipe recipe = new ModRecipe(mod);
-            recipe.AddIngredient(ItemID.Bar, 100);
-            recipe.AddTile(TileID.Anvils);
+            recipe.AddIngredient(ItemID.Silk, 25);
+            recipe.AddTile(mod, "BlackBox");
             recipe.SetResult(this);
+            recipe.AddRecipe();
         }
 	}
 }

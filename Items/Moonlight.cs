@@ -26,7 +26,7 @@ namespace LobotomyCorp.Items
 			item.useStyle = 1;
 			item.knockBack = 6;
 			item.value = 10000;
-			item.rare = 2;
+			item.rare = ItemRarityID.Purple;
 			item.UseSound = SoundID.Item1;
 			item.autoReuse = true;
 		}
@@ -46,6 +46,19 @@ namespace LobotomyCorp.Items
 
         public override void AddRecipes() 
 		{
+			ModRecipe recipe = new ModRecipe(mod);
+			recipe.AddIngredient(ItemID.TaxCollectorsStickOfDoom);
+			recipe.AddIngredient(ItemID.Piano);
+			recipe.AddIngredient(ItemID.Bird);
+			recipe.AddTile(mod, "BlackBox3");
+			recipe.SetResult(this);
+			recipe.AddRecipe();
+
+			recipe = new ModRecipe(mod);
+			recipe.AddIngredient(ItemID.IronBar, 10);
+			recipe.AddTile(ItemID.Hellforge);
+			recipe.SetResult(ItemID.TaxCollectorsStickOfDoom);
+			recipe.AddRecipe();
 		}
 	}
 }

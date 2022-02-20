@@ -30,8 +30,8 @@ namespace LobotomyCorp.Items
             item.noMelee = true;
 			item.knockBack = 0.8f;
 			item.value = 10000;
-			item.rare = 1;
-			item.UseSound = SoundID.Item1;
+			item.rare = ItemRarityID.Red;
+			item.UseSound = SoundID.Item8;
 			item.autoReuse = true;
             item.shoot = mod.ProjectileType("ParadiseLostBase");
             item.shootSpeed = 14f;
@@ -75,11 +75,13 @@ namespace LobotomyCorp.Items
         public override void AddRecipes() 
 		{
             ModRecipe recipe = new ModRecipe(mod);
-            recipe.AddIngredient(ItemID.Acorn, 3);
-            recipe.AddIngredient(ItemID.DynastyWood, 20);
-            recipe.AddIngredient(ItemID.SharkToothNecklace);
+            recipe.AddIngredient(ItemID.AngelWings);
+            recipe.AddIngredient(ItemID.SoulofNight, 5);
+            recipe.AddIngredient(ItemID.SoulofLight, 10);
+            recipe.AddIngredient(ItemID.LightShard);
             recipe.AddTile(TileID.Anvils);
             recipe.SetResult(this);
+            recipe.AddRecipe();
         }
 	}
 }

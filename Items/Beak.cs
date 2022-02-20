@@ -45,8 +45,9 @@ namespace LobotomyCorp.Items
             ModRecipe recipe = new ModRecipe(mod);
             recipe.AddIngredient(ItemID.FlintlockPistol);
             recipe.AddIngredient(ItemID.Feather, 5);
-            recipe.AddTile(TileID.Anvils);
+            recipe.AddTile(mod, "BlackBox");
             recipe.SetResult(this);
-        }
+			recipe.AddRecipe();
+		}
     }
 }

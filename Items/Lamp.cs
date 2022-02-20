@@ -23,13 +23,20 @@ namespace LobotomyCorp.Items
 			item.useStyle = 1;
 			item.knockBack = 6;
 			item.value = 10000;
-			item.rare = 2;
+			item.rare = ItemRarityID.Purple;
 			item.UseSound = SoundID.Item1;
 			item.autoReuse = true;
 		}
 
 		public override void AddRecipes() 
 		{
+			ModRecipe recipe = new ModRecipe(mod);
+			recipe.AddRecipeGroup("LobotomyCorp:DungeonLantern");
+			recipe.AddIngredient(ItemID.Feather, 15);
+			recipe.AddIngredient(ItemID.Bone, 10);
+			recipe.AddTile(mod, "BlackBox3");
+			recipe.SetResult(this);
+			recipe.AddRecipe();
 		}
 	}
 }

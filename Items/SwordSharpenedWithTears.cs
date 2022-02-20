@@ -27,7 +27,7 @@ namespace LobotomyCorp.Items
 			item.useStyle = ItemUseStyleID.HoldingOut;
 			item.knockBack = 6;
 			item.value = 10000;
-			item.rare = 2;
+			item.rare = ItemRarityID.Purple;
             item.shootSpeed = 2.4f;
             item.shoot = mod.ProjectileType("SwordSharpenedWithTearsProj");
 
@@ -72,6 +72,13 @@ namespace LobotomyCorp.Items
 
         public override void AddRecipes() 
 		{
-		}
+            ModRecipe recipe = new ModRecipe(mod);
+            recipe.AddIngredient(ItemID.Swordfish);
+            recipe.AddIngredient(ItemID.Sapphire);
+            recipe.AddIngredient(ItemID.Star, 8);
+            recipe.AddTile(mod, "BlackBox3");
+            recipe.SetResult(this);
+            recipe.AddRecipe();
+        }
 	}
 }

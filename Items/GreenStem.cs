@@ -27,7 +27,7 @@ namespace LobotomyCorp.Items
 			item.useStyle = ItemUseStyleID.HoldingOut;
 			item.knockBack = 6;
 			item.value = 10000;
-			item.rare = ItemRarityID.Yellow;
+			item.rare = ItemRarityID.Purple;
             item.shootSpeed = 4.7f;
             item.shoot = mod.ProjectileType("GreenStem");
 
@@ -45,6 +45,13 @@ namespace LobotomyCorp.Items
 
         public override void AddRecipes() 
 		{
+			ModRecipe recipe = new ModRecipe(mod);
+			recipe.AddIngredient(ItemID.ThornChakram);
+			recipe.AddIngredient(ItemID.JungleSpores, 4);
+			recipe.AddIngredient(ItemID.Vine, 90);
+			recipe.AddTile(mod, "BlackBox3");
+			recipe.SetResult(this);
+			recipe.AddRecipe();
 		}
 	}
 }

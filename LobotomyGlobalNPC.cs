@@ -200,6 +200,21 @@ namespace LobotomyCorp
             return true;
         }
 
+        public override void NPCLoot(NPC npc)
+        {
+            if (!Main.expertMode)
+            {
+                if (npc.type == NPCID.QueenBee && Main.rand.Next(2) == 0)
+                {
+                    Item.NewItem(npc.getRect(), mod.ItemType("Hornet"));
+                }
+                if (npc.type == NPCID.WallofFlesh && Main.rand.Next(4) == 0)
+                {
+                    Item.NewItem(npc.getRect(), mod.ItemType("Censored"));
+                }
+            }
+        }
+
         public override void SetupShop(int type, Chest shop, ref int nextSlot)
         {
             if (type == NPCID.Merchant)
@@ -207,6 +222,15 @@ namespace LobotomyCorp
                 if (Main.bloodMoon)
                 {
                     shop.item[nextSlot].SetDefaults(mod.ItemType("WristCutter"));
+                    nextSlot++;
+                }
+            }
+            if (type == NPCID.Dryad)
+            {
+                if (NPC.downedQueenBee || NPC.downedBoss3)
+                {
+                    shop.item[nextSlot].SetDefaults(mod.ItemType("Hypocrisy"));
+                    shop.item[nextSlot].shopCustomPrice = 100000;
                     nextSlot++;
                 }
             }

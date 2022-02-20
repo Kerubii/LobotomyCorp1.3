@@ -35,8 +35,9 @@ namespace LobotomyCorp.Items
             recipe.AddIngredient(ItemID.Bottle);
             recipe.AddIngredient(ItemID.Sapphire, 3);
             recipe.AddIngredient(ItemID.Sunflower);
-            recipe.AddTile(TileID.Anvils);
+            recipe.AddTile(mod, "BlackBox");
             recipe.SetResult(this);
+			recipe.AddRecipe();
 		}
 	}
 }
