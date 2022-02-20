@@ -56,8 +56,9 @@ namespace LobotomyCorp.Items
             recipe.AddIngredient(ItemID.ClockworkAssaultRifle);
             recipe.AddIngredient(ItemID.PinkDye, 3);
             recipe.AddIngredient(ItemID.PinkThread, 3);
-            recipe.AddTile(TileID.Anvils);
+            recipe.AddTile(mod, "BlackBox3");
             recipe.SetResult(this);
+            recipe.AddRecipe();
         }
     }
 }

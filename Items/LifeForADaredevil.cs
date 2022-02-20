@@ -35,8 +35,9 @@ namespace LobotomyCorp.Items
             recipe.AddIngredient(ItemID.IronBar, 10);
             recipe.AddIngredient(ItemID.LeadBar, 10);
             recipe.AddIngredient(ItemID.Obsidian, 5);
-            recipe.AddTile(TileID.Hellforge);
+            recipe.AddTile(mod, "BlackBox2");
             recipe.SetResult(this);
+            recipe.AddRecipe();
         }
 	}
 }

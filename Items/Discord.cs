@@ -83,8 +83,9 @@ namespace LobotomyCorp.Items
 			recipe.AddIngredient(ItemID.DarkLance);
 			recipe.AddIngredient(ItemID.BlackDye);
 			recipe.AddIngredient(ItemID.EbonsandBlock, 100);
-			recipe.AddTile(TileID.Anvils);
+			recipe.AddTile(mod, "BlackBox3");
 			recipe.SetResult(this);
+			recipe.AddRecipe();
 		}
 	}
 }

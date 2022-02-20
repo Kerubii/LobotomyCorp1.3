@@ -28,7 +28,7 @@ namespace LobotomyCorp.Items
             item.noMelee = true;
 			item.knockBack = 2.4f;
 			item.value = 10000;
-			item.rare = 1;
+			item.rare = ItemRarityID.Blue;
 			item.UseSound = SoundID.Item1;
 			item.autoReuse = true;
             item.shoot = mod.ProjectileType("CherryBlossomsPetal");
@@ -58,8 +58,9 @@ namespace LobotomyCorp.Items
             recipe.AddIngredient(ItemID.Acorn, 3);
             recipe.AddIngredient(ItemID.DynastyWood, 20);
             recipe.AddIngredient(ItemID.SharkToothNecklace);
-            recipe.AddTile(TileID.Anvils);
+            recipe.AddTile(mod, "BlackBox");
             recipe.SetResult(this);
+            recipe.AddRecipe();
         }
 	}
 }

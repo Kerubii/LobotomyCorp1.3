@@ -28,12 +28,12 @@ namespace LobotomyCorp.Items
 			item.useStyle = ItemUseStyleID.HoldingOut;
 			item.knockBack = 6;
 			item.value = 10000;
-			item.rare = 1;
+			item.rare = ItemRarityID.Yellow;
             item.shootSpeed = 1.8f;
             item.shoot = mod.ProjectileType("GrinderMk4");
 
             item.noUseGraphic = true;
-			item.UseSound = SoundID.Item1;
+			item.UseSound = SoundID.Item23;
             item.noMelee = true;
 			item.autoReuse = true;
 		}
@@ -49,18 +49,15 @@ namespace LobotomyCorp.Items
             //On hit, 10% chance to increase sp by 40% for 30 seconds
         }
 
-        public override void AddRecipes() 
-		{
+        public override void AddRecipes()
+        {
             ModRecipe recipe = new ModRecipe(mod);
-            recipe.AddIngredient(ItemID.FallenStar, 10);
-            recipe.AddIngredient(ItemID.Amethyst);
-            recipe.AddIngredient(ItemID.Topaz);
-            recipe.AddIngredient(ItemID.Emerald);
-            recipe.AddIngredient(ItemID.Ruby);
-            recipe.AddIngredient(ItemID.Sapphire);
-            recipe.AddIngredient(ItemID.Diamond);
-            recipe.AddTile(TileID.Anvils);
+            recipe.AddIngredient(ItemID.WoodYoyo);
+            recipe.AddIngredient(ItemID.Lens, 5);
+            recipe.AddIngredient(ItemID.IronBar, 10);
+            recipe.AddTile(mod, "BlackBox2");
             recipe.SetResult(this);
+            recipe.AddRecipe();
         }
-	}
+    }
 }

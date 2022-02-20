@@ -158,6 +158,32 @@ namespace LobotomyCorp
                 (int)ItemID.VilePowder
             });
             RecipeGroup.RegisterGroup("LobotomyCorp:EvilPowder", rec);
+
+            rec = new RecipeGroup(() => Language.GetTextValue("LegacyMisc.37") + " " + "Butterflies", new[]
+            {
+                (int)ItemID.GoldButterfly,
+                (int)ItemID.JuliaButterfly,
+                ItemID.MonarchButterfly,
+                ItemID.PurpleEmperorButterfly,
+                ItemID.RedAdmiralButterfly,
+                ItemID.SulphurButterfly,
+                ItemID.TreeNymphButterfly,
+                ItemID.UlyssesButterfly,
+                ItemID.ZebraSwallowtailButterfly
+            });
+            RecipeGroup.RegisterGroup("LobotomyCorp:Butterflies", rec);
+
+            rec = new RecipeGroup(() => Language.GetTextValue("LegacyMisc.37") + " " + "Dungeon Lanterns", new[]
+            {
+                (int)ItemID.AlchemyLantern,
+                (int)ItemID.BrassLantern,
+                ItemID.CagedLantern,
+                ItemID.CarriageLantern,
+                ItemID.AlchemyLantern,
+                ItemID.DiablostLamp,
+                ItemID.OilRagSconse
+            });
+            RecipeGroup.RegisterGroup("LobotomyCorp:DungeonLantern", rec);
         }
 
         public static bool LamentValid(NPC t, Projectile p)

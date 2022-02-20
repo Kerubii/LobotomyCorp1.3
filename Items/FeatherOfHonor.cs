@@ -29,8 +29,8 @@ namespace LobotomyCorp.Items
 			item.useStyle = ItemUseStyleID.HoldingOut;
             item.noMelee = true;
 			item.knockBack = 2.4f;
-			item.value = 10000;
-			item.rare = 1;
+			item.value = 5000;
+			item.rare = ItemRarityID.Purple;
 			//item.UseSound = SoundID.Item1;
 			item.autoReuse = true;
             item.shoot = mod.ProjectileType("FeatherOfHonor");
@@ -83,8 +83,9 @@ namespace LobotomyCorp.Items
             recipe.AddIngredient(ItemID.Feather, 5);
             recipe.AddIngredient(ItemID.InfernoPotion, 2);
             recipe.AddIngredient(ItemID.Fireblossom, 10);
-            recipe.AddTile(TileID.ImbuingStation);
+            recipe.AddTile(mod, "BlackBox3");
             recipe.SetResult(this);
+            recipe.AddRecipe();
         }
 	}
 }

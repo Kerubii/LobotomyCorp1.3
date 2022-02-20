@@ -23,7 +23,7 @@ namespace LobotomyCorp.Items
 			item.useStyle = 1;
 			item.knockBack = 6;
 			item.value = 10000;
-			item.rare = 2;
+			item.rare = ItemRarityID.Blue;
 			item.UseSound = SoundID.Item1;
 			item.autoReuse = true;
 		}
@@ -36,6 +36,7 @@ namespace LobotomyCorp.Items
             recipe.AddIngredient(ItemID.AntlionMandible, 4);
             recipe.AddTile(TileID.Anvils);
             recipe.SetResult(this);
-        }
+			recipe.AddRecipe();
+		}
 	}
 }

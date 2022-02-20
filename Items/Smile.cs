@@ -67,8 +67,9 @@ namespace LobotomyCorp.Items
             recipe.AddIngredient(ItemID.Pwnhammer);
             recipe.AddIngredient(ItemID.SoulofNight, 8);
             recipe.AddIngredient(ItemID.RottenChunk, 5);
-            recipe.AddTile(TileID.MythrilAnvil);
+            recipe.AddTile(mod, "BlackBox3");
             recipe.SetResult(this);
-        }
+			recipe.AddRecipe();
+		}
 	}
 }

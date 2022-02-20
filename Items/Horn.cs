@@ -51,8 +51,9 @@ namespace LobotomyCorp.Items
             recipe.AddIngredient(ItemID.JungleRose);
             recipe.AddIngredient(ItemID.Lens, 5);
             recipe.AddIngredient(ItemID.JungleSpores, 9);
-            recipe.AddTile(TileID.Anvils);
+            recipe.AddTile(mod, "BlackBox");
             recipe.SetResult(this);
-		}
+            recipe.AddRecipe();
+        }
 	}
 }

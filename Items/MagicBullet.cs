@@ -24,7 +24,7 @@ namespace LobotomyCorp.Items
 			item.noMelee = true; //so the item's animation doesn't do damage
 			item.knockBack = 4; // Sets the item's knockback. Note that projectiles shot by this weapon will use its and the used ammunition's knockback added together.
 			item.value = 10000; // how much the item sells for (measured in copper)
-			item.rare = ItemRarityID.Yellow; // the color that the item's name will be in-game
+			item.rare = ItemRarityID.Purple; // the color that the item's name will be in-game
 			item.UseSound = SoundID.Item11; // The sound that this item plays when used.
 			item.autoReuse = true; // if you can hold click to automatically use it again
 			item.shoot = 10; //idk why but all the guns in the vanilla source have this
@@ -51,8 +51,9 @@ namespace LobotomyCorp.Items
             recipe.AddIngredient(ItemID.Sapphire, 3);
             recipe.AddIngredient(ItemID.ShadowScale, 20);
             recipe.AddIngredient(ItemID.DemoniteBar, 5);
-            recipe.AddTile(TileID.Anvils);
+            recipe.AddTile(mod, "BlackBox2");
             recipe.SetResult(this);
+            recipe.AddRecipe();
         }
     }
 }

@@ -103,7 +103,15 @@ namespace LobotomyCorp.Items
             return player.altFunctionUse != 2;
         }*/
 
-        public override void AddRecipes() {
-		}
-	}
+        public override void AddRecipes()
+        {
+            ModRecipe recipe = new ModRecipe(mod);
+            recipe.AddIngredient(ItemID.FlintlockPistol);
+            recipe.AddIngredient(ItemID.Sickle);
+            recipe.AddIngredient(ItemID.RedHusk, 2);
+            recipe.AddTile(mod, "BlackBox3");
+            recipe.SetResult(this);
+            recipe.AddRecipe();
+        }
+    }
 }

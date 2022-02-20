@@ -102,8 +102,9 @@ namespace LobotomyCorp.Items
 			recipe.AddIngredient(ItemID.SoulofLight, 5);
 			recipe.AddIngredient(ItemID.SoulofNight, 10);
 			recipe.AddIngredient(ItemID.DarkShard);
-			recipe.AddTile(TileID.Anvils);
+			recipe.AddTile(mod, "BlackBox3");
 			recipe.SetResult(this);
+			recipe.AddRecipe();
 		}
 	}
 }

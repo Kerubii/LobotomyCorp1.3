@@ -42,8 +42,9 @@ namespace LobotomyCorp.Items
             ModRecipe recipe = new ModRecipe(mod);
             recipe.AddIngredient(ItemID.Revolver);
             recipe.AddRecipeGroup("LobotomyCorp:EvilPowder", 12);
-            recipe.AddTile(TileID.Anvils);
+            recipe.AddTile(mod, "BlackBox");
             recipe.SetResult(this);
-        }
+			recipe.AddRecipe();
+		}
     }
 }

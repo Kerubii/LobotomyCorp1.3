@@ -28,7 +28,7 @@ namespace LobotomyCorp.Items
 			item.useStyle = 1;
 
 			item.value = 10000;
-			item.rare = ItemRarityID.Green;
+			item.rare = ItemRarityID.Purple;
 			item.UseSound = SoundID.Item1;
 			item.autoReuse = true;
 		}
@@ -44,8 +44,9 @@ namespace LobotomyCorp.Items
 			recipe.AddIngredient(ItemID.Umbrella);
 			recipe.AddIngredient(ItemID.BlackDye, 2);
 			recipe.AddIngredient(ItemID.Feather, 8);
-			recipe.AddTile(TileID.AlchemyTable);
+			recipe.AddTile(mod, "BlackBox3");
 			recipe.SetResult(this);
+			recipe.AddRecipe();
 		}
 	}
 }

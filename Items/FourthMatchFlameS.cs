@@ -16,6 +16,7 @@ namespace LobotomyCorp.Items
                           "Fourth Match - Alternate attack makes you explode while on fourth use that deals 4000% increased damage\n" +
                           "Matchstick - Inflicts fire that gets stronger the more it is inflicted" +
                           "|Scorching Embers - Sets self on fire every fourth use";
+            EgoColor = LobotomyCorp.TethRarity;
 		}
 
 		public override void SetDefaults() 

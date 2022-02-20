@@ -13,7 +13,7 @@ namespace LobotomyCorp.Items
         }
 
 		public override void SetDefaults() {
-			item.damage = 42;
+			item.damage = 48;
 			item.magic = true;
             item.mana = 6;
 			item.width = 40;
@@ -22,9 +22,9 @@ namespace LobotomyCorp.Items
 			item.useAnimation = 22;
 			item.useStyle = ItemUseStyleID.HoldingOut;
 			item.knockBack = 4;
-			item.value = 10000;
+			item.value = 8000;
 			item.rare = ItemRarityID.Red;
-			item.UseSound = SoundID.Item11;
+			item.UseSound = SoundID.Item21;
 			item.autoReuse = true;
             item.shoot = mod.ProjectileType("MeltyLove");
             item.shootSpeed = 7.6f;
@@ -42,16 +42,18 @@ namespace LobotomyCorp.Items
             recipe.AddIngredient(ItemID.PinkGel, 20);
             recipe.AddIngredient(ItemID.AdamantiteBar, 10);
             recipe.AddIngredient(ItemID.Bottle);
-            recipe.AddTile(TileID.MythrilAnvil);
+            recipe.AddTile(mod, "BlackBox3");
             recipe.SetResult(this);
+            recipe.AddRecipe();
 
             recipe = new ModRecipe(mod);
             recipe.AddIngredient(ItemID.Gel, 300);
             recipe.AddIngredient(ItemID.PinkGel, 20);
             recipe.AddIngredient(ItemID.TitaniumBar, 10);
             recipe.AddIngredient(ItemID.Bottle);
-            recipe.AddTile(TileID.MythrilAnvil);
+            recipe.AddTile(mod, "BlackBox3");
             recipe.SetResult(this);
+            recipe.AddRecipe();
         }
     }
 }

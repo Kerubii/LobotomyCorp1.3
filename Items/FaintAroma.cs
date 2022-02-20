@@ -7,8 +7,8 @@ namespace LobotomyCorp.Items
 	public class FaintAroma : ModItem
 	{
 		public override void SetStaticDefaults() {
-			Tooltip.SetDefault("Hair has grown on the crossbow as if to express that the woman's dejection will never be forgotten.\n" +
-                               "The sound of the projectile splitting the air is reminiscent of her piercing scream.");
+			Tooltip.SetDefault("Even after the E.G.O was extracted, it still carried the fragrance of the archetype.\n" +
+							   "Simply carrying it gives the illusion that you're standing in a forest in the middle of nowhere.");
         }
 
 		public override void SetDefaults() {
@@ -22,8 +22,8 @@ namespace LobotomyCorp.Items
 			item.noMelee = true;
 			item.knockBack = 4;
 			item.value = 10000;
-			item.rare = ItemRarityID.Green;
-			item.UseSound = SoundID.Item11;
+			item.rare = ItemRarityID.Purple;
+			item.UseSound = SoundID.Item5;
 			item.autoReuse = true;
 			item.shoot = 10;
 			item.shootSpeed = 10f;
@@ -35,5 +35,16 @@ namespace LobotomyCorp.Items
         {
             return new Vector2(-2, 0);
         }
-    }
+
+		public override void AddRecipes()
+		{
+			ModRecipe recipe = new ModRecipe(mod);
+			recipe.AddIngredient(ItemID.WoodenBow);
+			recipe.AddIngredient(ItemID.Acorn, 10);
+			recipe.AddIngredient(ItemID.FlowerWall, 50);
+			recipe.AddTile(mod, "BlackBox3");
+			recipe.SetResult(this);
+			recipe.AddRecipe();
+		}
+	}
 }

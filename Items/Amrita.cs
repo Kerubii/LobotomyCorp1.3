@@ -51,7 +51,11 @@ namespace LobotomyCorp.Items
 
         public override void AddRecipes() 
 		{
-            
+            ModRecipe recipe = new ModRecipe(mod);
+            recipe.AddIngredient(ItemID.DynastyWood, 30);
+            recipe.AddTile(mod, "BlackBox2");
+            recipe.SetResult(this);
+            recipe.AddRecipe();
         }
 	}
 }

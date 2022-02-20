@@ -22,7 +22,7 @@ namespace LobotomyCorp.Items
 			item.noMelee = true;
 			item.knockBack = 4;
 			item.value = 10000;
-			item.rare = ItemRarityID.Blue;
+			item.rare = ItemRarityID.Yellow;
 			item.UseSound = SoundID.Item11;
 			item.autoReuse = true;
 			item.shoot = mod.ProjectileType("SyrinxShot");

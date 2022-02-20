@@ -45,8 +45,17 @@ namespace LobotomyCorp.Items
             recipe.AddIngredient(ItemID.Silk, 20);
             recipe.AddIngredient(ItemID.GoldBar, 10);
             recipe.AddIngredient(ItemID.IllegalGunParts);
-            recipe.AddTile(TileID.Anvils);
+            recipe.AddTile(mod, "BlackBox");
             recipe.SetResult(this);
+            recipe.AddRecipe();
+
+            recipe = new ModRecipe(mod);
+            recipe.AddIngredient(ItemID.Silk, 20);
+            recipe.AddIngredient(ItemID.PlatinumBar, 10);
+            recipe.AddIngredient(ItemID.IllegalGunParts);
+            recipe.AddTile(mod, "BlackBox");
+            recipe.SetResult(this);
+            recipe.AddRecipe();
         }
     }
 }

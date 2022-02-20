@@ -16,6 +16,7 @@ namespace LobotomyCorp.Items
         public override void SetDefaults() {
 			item.CloneDefaults(ItemID.FetidBaghnakhs);
 			item.damage = 32;
+            item.rare = ItemRarityID.Purple;
             item.scale = 0.60f;
 		}
 
@@ -40,6 +41,12 @@ namespace LobotomyCorp.Items
         }
 
         public override void AddRecipes() {
-		}
+            ModRecipe recipe = new ModRecipe(mod);
+            recipe.AddIngredient(ItemID.BladedGlove);
+            recipe.AddIngredient(ItemID.CyanHusk, 2);
+            recipe.AddTile(mod, "BlackBox3");
+            recipe.SetResult(this);
+            recipe.AddRecipe();
+        }
 	}
 }

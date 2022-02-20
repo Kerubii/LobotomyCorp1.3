@@ -77,7 +77,10 @@ namespace LobotomyCorp.Items
             result = string.Join("\n", Passive);
             if (result.EndsWith("\n"))
                 result = result.Substring(0, result.Length - 1);
-
+            if (Negative)
+            {
+                result += "\nThese Items are incomplete";
+            }
             return result;
         }
 

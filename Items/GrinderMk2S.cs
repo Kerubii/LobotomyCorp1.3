@@ -28,7 +28,7 @@ namespace LobotomyCorp.Items
 			item.useStyle = ItemUseStyleID.HoldingOut;
 			item.knockBack = 6;
 			item.value = 10000;
-			item.rare = 2;
+			item.rare = ItemRarityID.Yellow;
 			item.UseSound = SoundID.Item1;
             item.noMelee = true;
             item.noUseGraphic = true;

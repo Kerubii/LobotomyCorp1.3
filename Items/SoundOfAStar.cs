@@ -18,7 +18,7 @@ namespace LobotomyCorp.Items
 
 		public override void SetDefaults() 
 		{
-			item.damage = 24;
+			item.damage = 42;
 			item.summon = true;
             item.mana = 6;
 			item.width = 40;
@@ -29,9 +29,9 @@ namespace LobotomyCorp.Items
 			item.useStyle = ItemUseStyleID.HoldingOut;
             item.noMelee = true;
 			item.knockBack = 2.4f;
-			item.value = 10000;
-			item.rare = 1;
-			item.UseSound = SoundID.Item1;
+			item.value = 5000;
+			item.rare = ItemRarityID.Red;
+			item.UseSound = SoundID.Item9;
 			item.autoReuse = true;
             item.shoot = mod.ProjectileType("SoundOfAStar");
             item.shootSpeed = 4f;
@@ -55,8 +55,9 @@ namespace LobotomyCorp.Items
             recipe.AddIngredient(ItemID.SoulofLight, 8);
             recipe.AddIngredient(ItemID.SoulofNight, 8);
             recipe.AddIngredient(ItemID.SapphireGemsparkBlock, 25);
-            recipe.AddTile(TileID.MythrilAnvil);
+            recipe.AddTile(mod, "BlackBox3");
             recipe.SetResult(this);
+            recipe.AddRecipe();
         }
 	}
 }

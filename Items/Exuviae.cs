@@ -24,7 +24,7 @@ namespace LobotomyCorp.Items
 			item.knockBack = 4; // Sets the item's knockback. Note that projectiles shot by this weapon will use its and the used ammunition's knockback added together.
 			item.value = 10000; // how much the item sells for (measured in copper)
 			item.rare = ItemRarityID.Purple; // the color that the item's name will be in-game
-			item.UseSound = SoundID.Item11; // The sound that this item plays when used.
+			item.UseSound = SoundID.Item14; // The sound that this item plays when used.
 			item.autoReuse = true; // if you can hold click to automatically use it again
 			item.shoot = mod.ProjectileType("ExuviaeShot"); //idk why but all the guns in the vanilla source have this
 			item.shootSpeed = 8f; // the speed of the projectile (measured in pixels per frame)
@@ -49,16 +49,11 @@ namespace LobotomyCorp.Items
         public override void AddRecipes()
         {
             ModRecipe recipe = new ModRecipe(mod);
-            recipe.AddIngredient(ItemID.Torch, 99);
-            recipe.AddIngredient(ItemID.GoldBar, 15);
-            recipe.AddTile(TileID.Anvils);
+            recipe.AddIngredient(ItemID.Hive, 25);
+            recipe.AddIngredient(ItemID.Worm, 10);
+            recipe.AddTile(mod, "BlackBox3");
             recipe.SetResult(this);
-
-            recipe = new ModRecipe(mod);
-            recipe.AddIngredient(ItemID.Torch, 99);
-            recipe.AddIngredient(ItemID.PlatinumBar, 15);
-            recipe.AddTile(TileID.Anvils);
-            recipe.SetResult(this);
+            recipe.AddRecipe();
         }
     }
 }

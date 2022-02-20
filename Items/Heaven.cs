@@ -28,7 +28,7 @@ namespace LobotomyCorp.Items
 			item.useStyle = ItemUseStyleID.HoldingOut;
 			item.knockBack = 6;
 			item.value = 10000;
-			item.rare = 3;
+			item.rare = ItemRarityID.Purple;
             item.shootSpeed = 3.7f;
             item.shoot = mod.ProjectileType("Heaven");
 
@@ -46,6 +46,21 @@ namespace LobotomyCorp.Items
 
         public override void AddRecipes() 
 		{
+			ModRecipe recipe = new ModRecipe(mod);
+			recipe.AddIngredient(ItemID.Javelin);
+			recipe.AddIngredient(ItemID.TheRottedFork);
+			recipe.AddIngredient(ItemID.CrimtaneBar, 5);
+			recipe.AddTile(mod, "BlackBox2");
+			recipe.SetResult(this);
+			recipe.AddRecipe();
+
+			recipe = new ModRecipe(mod);
+			recipe.AddIngredient(ItemID.Javelin);
+			recipe.AddIngredient(ItemID.BallOHurt);
+			recipe.AddIngredient(ItemID.DemoniteBar, 5);
+			recipe.AddTile(mod, "BlackBox2");
+			recipe.SetResult(this);
+			recipe.AddRecipe();
 		}
 	}
 }

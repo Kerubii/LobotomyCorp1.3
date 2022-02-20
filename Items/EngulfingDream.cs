@@ -42,8 +42,9 @@ namespace LobotomyCorp.Items
             recipe.AddIngredient(ItemID.Cloud, 30);
             recipe.AddIngredient(ItemID.Feather, 3);    
             recipe.AddIngredient(ItemID.Star, 8);
-            recipe.AddTile(TileID.Anvils);
+            recipe.AddTile(mod, "BlackBox");
             recipe.SetResult(this);
-        }
+			recipe.AddRecipe();
+		}
     }
 }
